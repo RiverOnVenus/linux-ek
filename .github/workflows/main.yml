@@ -1,0 +1,44 @@
+name: PKGBUILD CI
+on:
+  workflow_dispatch:
+jobs:
+  build_with_gcc:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+    - name: Makepkg Build and Check
+      id: makepkg
+      uses: edlanglois/pkgbuild-action@v1.1.6
+      with:
+          pkgdir: "gcc-actiondir"
+          namcapDisable: 1
+          makepkgArgs: "--skippgpcheck --noconfirm -s"
+          aurDeps: 1
+    - name: Release
+      uses: ncipollo/release-action@v1.8.6
+      with:
+          allowUpdates: 1
+          tag: "v5.14.14-1-gcc"
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+  build_with_lto:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+    - name: Makepkg Build and Check
+      id: makepkg
+      uses: edlanglois/pkgbuild-action@v1.1.6
+      with:
+          pkgdir: "lto-actiondir"
+          namcapDisable: 1
+          makepkgArgs: "--skippgpcheck --noconfirm -s"
+          aurDeps: 1
+    - name: Release
+      uses: ncipollo/release-action@v1.8.6
+      with:
+          allowUpdates: 1
+          tag: "v5.14.14-1-lto"
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
