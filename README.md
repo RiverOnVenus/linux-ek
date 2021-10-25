@@ -31,7 +31,7 @@ You need to modify the `/etc/dkms/framework.conf` file, add two lines to the end
 
 If you have done that, just reinstall or install the kernel compiled with CLANG/LLVM/LTO and DKMS will not fail again.
 
-# Check if Baby CPU Scheduler is enabled
+# Check if TT CPU Scheduler is enabled
 
 This start-up message should appear in the kernel ring buffer when Baby in enabled, use:
 
