@@ -33,7 +33,7 @@ If you have done that, just reinstall or install the kernel compiled with CLANG/
 
 # Check if TT CPU Scheduler is enabled
 
-This start-up message should appear in the kernel ring buffer when Baby in enabled, use:
+This start-up message should appear in the kernel ring buffer when TT in enabled, use:
 
 ```
 # dmesg | grep -i 'TT CPU'
