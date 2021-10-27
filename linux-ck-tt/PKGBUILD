@@ -70,8 +70,8 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.14.14
-pkgrel=2
+pkgver=5.14.15
+pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -107,7 +107,7 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('c4f29298a98cfd42a4ee6d2cc94da5d213e57e1160918ddbb7796c511541a85eeed53f9e30203dc5c9e941ebb0a516b6b3f0b525f93f7752cb22d30f76432dfd'
+b2sums=('68d89bba3c35062e4ba93b4304d238541ced462d839ca4f49641f457f542d27fd11ae4ffe9f5474a5701a26b89858b16c7e667823dddd6945180acc2ef44070d'
         'SKIP'
         'eb23c4828a91930f5d7bc1fe683dcdd09c193ee2223ed643d39e534e56f304078665c535f0db211cee6d935c044dee54a496b525c898b648ba8999454ae73606'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
