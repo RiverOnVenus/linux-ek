@@ -71,7 +71,7 @@ _subarch=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.14.15
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -96,7 +96,7 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
   "${_patchsource}/v5.14/arch/0001-arch-patches-v10.patch"
-  "${_patchsource}/cpu-scheduler/v5.14/tt/tt-5.14.patch"
+  "${_patchsource}/cpu-scheduler/v5.14/tt/tt-5.14-r2.patch"
   "${_patchsource}/v5.14/uksm/0001-UKSM-for-5.14-v2.patch"
   "${_patchsource}/v5.14/cjktty/0001-cjktty-5.14.patch"
   "${_patchsource}/v5.14/bbr/0001-bbr2-5.14-introduce-BBRv2.patch"
@@ -113,7 +113,7 @@ b2sums=('68d89bba3c35062e4ba93b4304d238541ced462d839ca4f49641f457f542d27fd11ae4f
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'bd20774ee2c9856601af2c89a3af95c6abc812b71253368090e9c252edcce452f416bfeed54ced0886d401b5a9e1cb72c16ea5f04a72d8ded596c0d083f80e42'
         'eeb23a97714d5cd1570403e7dc1d236859b972809b9faf689f0c1029d8367b6bcd6346ed9f01de5e3e93bfcadad5d35ee12dec2f6992250bd8459ed85befd5a8'
-        '87e998162c277dcc6a30df188d6136841322bcc71e4003ab8e4ca77a92ff045088be22bee85e735331fd13ea106eccb064ac242f5d350b9c8d442baea7b112e2'
+        '312a556ba9434d94767c6c3d1d4c9a3f04ad9d700914b0de28796adf9ab6807ee60d35eb3fb9eb43a797d31525334b7986fbdd7343da7fd02afb80080f0e11db'
         '8f6d6263f0e517b6e7a1809fc57e01cc4b13dd261f778041026ec510f48257d4f525c3cb0b0935e291293960c9191282f5765ca0af3d948838e8f865c7deafcc'
         '21d13b890e7b80c924e18ae11f675d69a80adffbe75e37bebd003024e7299c582346b0df60b67c709eba9678bcf6dda7da852c9cf18d43804ddd8ee9388b9ea5'
         'e263f1cf228d5a2c26340f37fa1b4a6d6c643b1a22378f37c96b68f5ec10372d65e2bf96716aec0722b18d76ca752b9debf82f621896e03917c977d8db2a4b21'
@@ -180,10 +180,10 @@ prepare() {
 #   scripts/config --enable CONFIG_HZ_1000
 #   scripts/config --set-val CONFIG_HZ 1000
 
-    # 803 Hz is the default for TT
+    # 833 Hz is the default for TT
     scripts/config --disable CONFIG_HZ_300
-    scripts/config --enable CONFIG_HZ_803
-    scripts/config --set-val CONFIG_HZ 803
+    scripts/config --enable CONFIG_HZ_833
+    scripts/config --set-val CONFIG_HZ 833
 
 # BBR2
   scripts/config --module CONFIG_TCP_CONG_CUBIC
