@@ -73,10 +73,10 @@ net.ipv4.conf.default.log_martians = 1
 net.ipv4.conf.all.log_martians = 1
 net.core.default_qdisc = cake
 
-# Virtual memory
+# VFS cache
+# Decreasing the virtual file system (VFS) cache parameter value 
+# may improve system responsiveness
 vm.vfs_cache_pressure = 50
-vm.dirty_background_ratio = 5
-vm.dirty_ratio = 10
 
 # For Solid State Drives
 vm.swappiness = 100
