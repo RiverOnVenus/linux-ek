@@ -21,15 +21,15 @@ if [ -z ${_compiler+x} ]; then
   _compiler=clang
 fi
 
-#	 833 Hz is the TT alternative to 1000 Hz. Choose 833 Hz
-#	 if you want a balance between latency and performance.
+# 833 Hz is the TT alternative to 1000 Hz. Choose 833 Hz
+#  if you want a balance between latency and performance.
 _833_HZ_ticks=y
 
-#	 1666 Hz is for very high latency bound systems. Choose 1666 Hz
-#	 if you don't care about overall throughput or performance, but
-#	 you care more about latency (some realtime applications) require
-#	 low latency. The response and interactive processes with 1666 Hz
-#	 feel much snappier.
+# 1666 Hz is for very high latency bound systems. Choose 1666 Hz
+# if you don't care about overall throughput or performance, but
+# you care more about latency (some realtime applications) require
+# low latency. The response and interactive processes with 1666 Hz
+# feel much snappier.
 _1666_HZ_ticks=
 
 # Optionally select a sub architecture by number or leave blank which will
@@ -82,7 +82,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.15
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -120,7 +120,7 @@ validpgpkeys=(
 )
 b2sums=('3921274b23f7938abdf3ed9334534b4581e13d7484303d3a5280eddb038999aaa8b836666a487472d9c4a219af0f06b9fecccaf348fb5510ab8762f4ef4b7e83'
         'SKIP'
-        'a24cde5efbd2f91382ff3cc6249bc7048c9622ef73fe45cee357a567932dfda2413417c528316dbef0ac8ed6fd7762c783acb6bced3210114439d063b29103ee'
+        '1d4442ce1bde2f38feb98b656a4e622a1520d921fb38b114d7e84e70df825c63d3028e2682fdacad907a05876160ff918bf486cba938a8aeb9ee71a2c2f9bfbf'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
         'be54a031935aec05838414f22f650dd3a42d6fa9e029be52f787e2c3fd7defcec78621ce02bb4f89f095012b51bf90c425b94645de3fcf825cc61eed2ce5fff9'
@@ -212,17 +212,6 @@ prepare() {
   scripts/config --enable CONFIG_TCP_CONG_BBR2
   scripts/config --enable CONFIG_DEFAULT_BBR2
   scripts/config --set-str CONFIG_DEFAULT_TCP_CONG bbr2
-
- # TT CPU Scheduler
-  scripts/config --enable CONFIG_HZ_PERIODIC
-  scripts/config --disable CONFIG_EXPERT
-  scripts/config --disable CONFIG_DEBUG_KERNEL
-  scripts/config --disable CONFIG_SCHEDSTATS
-  scripts/config --disable SCHED_AUTOGROUP
-  scripts/config --disable CGROUP_SCHED
-  scripts/config --disable UCLAMP_TASK
-  scripts/config --disable SCHED_CORE
-  scripts/config --enable CONFIG_TT_SCHED
 
   # these are ck's htrimer patches
   echo "Patching with ck hrtimer patches..."
