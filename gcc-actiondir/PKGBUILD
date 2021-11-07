@@ -23,8 +23,11 @@ fi
 
 # 833 Hz is the TT alternative to 1000 Hz. Choose 833 Hz
 #  if you want a balance between latency and performance.
-_833_HZ_ticks=y
+_833_HZ_ticks=
 
+# ck recommends 1000 Hz tick and the hrtimer patches in lieu of ck1
+_1000_HZ_ticks=y
+ 
 # 1666 Hz is for very high latency bound systems. Choose 1666 Hz
 # if you don't care about overall throughput or performance, but
 # you care more about latency (some realtime applications) require
@@ -197,6 +200,13 @@ prepare() {
 		scripts/config --disable CONFIG_HZ_300
 		scripts/config --enable CONFIG_HZ_1666
 		scripts/config --set-val CONFIG_HZ 1666
+	fi
+
+	if [ -n "$_1000_HZ_ticks" ]; then
+		echo "Setting tick rate to 1000Hz..."
+		scripts/config --disable CONFIG_HZ_300
+		scripts/config --enable CONFIG_HZ_1000
+		scripts/config --set-val CONFIG_HZ 1000
 	fi
 
 	if [ -n "$_833_HZ_ticks" ]; then
