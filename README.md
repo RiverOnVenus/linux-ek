@@ -83,7 +83,7 @@ vm.swappiness = 100
 # See https://chrisdown.name/2018/01/02/in-defence-of-swap.html
 ```
 
-# Changing I/O scheduler
+# Changing I/O scheduler if you want
 
 To change the active I/O scheduler to *bfq* for device *sda*, use:
 
