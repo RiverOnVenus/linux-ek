@@ -40,14 +40,14 @@ _1000_HZ_ticks=y
 _1666_HZ_ticks=
 
 # 3333HZ Tick every ~300us
-_3333_HZ_ticks=
+# _3333_HZ_ticks=
 
 # 5000Hz Ticks every 200us
-_5000_HZ_ticks=
+# _5000_HZ_ticks=
 
 # 10k Hz. The kernel would be lucky if it can finishes its job before
 # the next tick happens (if you chose 10k Hz, it will tick every 100us).
-_10000_HZ_ticks=
+# _10000_HZ_ticks=
 
 
 # Optionally select a sub architecture by number or leave blank which will
@@ -100,7 +100,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.15.2
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -126,7 +126,7 @@ source=(
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
   "${_patchsource}/v5.15/arch/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch"
   "${_patchsource}/cpu-scheduler/v5.15/tt/tt-5.15-r2.patch"
-  "${_patchsource}/cpu-scheduler/v5.15/tt/high-hz.patch"
+#   "${_patchsource}/cpu-scheduler/v5.15/tt/high-hz.patch"
   "${_patchsource}/v5.15/uksm/0001-UKSM-for-5.15.patch"
   "${_patchsource}/v5.15/cjktty/cjktty-5.15.patch"
   "${_patchsource}/v5.15/bbr2/0001-bbr2-5.15-introduce-BBRv2.patch"
@@ -139,12 +139,11 @@ validpgpkeys=(
 )
 b2sums=('e1247057fc57e2f071ff150b5e0651db054a1e15a258ebd198921f7ef0c1e441f0a36c46024298175a8a9a0bb7cc0b6d505d7a77a053c1ce88a720ebea424d89'
         'SKIP'
-        '49fc9a8fe79596e8b4807ecb67e022e47f080b714e831a148aaded78497a0446004ffddea74532d37d3cc334c8f6a99794c7b19b57c3d580c82de9057f0db3e7'
+        '9bc99c060701157b67b6ef1f3405315081aa72b00472b5d0045a9c49f136d85324b51200a8526f68b5ad98920625bcc86b4d362e90bddcd381bea3123a6356a1'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
         'be54a031935aec05838414f22f650dd3a42d6fa9e029be52f787e2c3fd7defcec78621ce02bb4f89f095012b51bf90c425b94645de3fcf825cc61eed2ce5fff9'
-        '6b6162a7ec9ee4775d27732d7f4ea88e1bb5f653d12ccd565cb824297c4c35cb55a10892b06c0fc1cf66165e8667ba65f3eaa85095a9ed112c281ba2b5881f21'
-        'b472903b6074aac1cecf9902929a7d1f3b9c0ec31bf90e1390ca136b35401402010cecef2f40769ae6e3a6a80f2ca65cc91dc42b61eb55384719af9958f5cf86'
+        'c69cc9c5413d2c989510a245a29317e199a1e5b641bc229b30b0a4df11547485d6af100ff16f5c9c532f58f35f4d3f849901ecbca5df6fbc8c8710822caf17cc'
         '33ecbb3c7c3887b187fe951dd1fb897ab5378ecb1e01fa290c31782b10925b5874f0ded96b7a8a2693497fbee2965e9b5e9ff421934fce8a98508af4425ca260'
         '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
         'e83b6ae58a6906f97e1ada7369b6dad8ccfb0264537b128e6815d2f47493b20b682c6852621fba75f5a23e92d7c0590bffb7dd7f0960bd33b23434477dde7079'
