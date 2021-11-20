@@ -123,14 +123,14 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/v5.15/arch/0001-arch-patches-v2.patch"
-  "${_patchsource}/cpu-scheduler/v5.15/tt/tt-5.15-r2.patch"
+  "${_patchsource}/5.15/arch/0001-arch-patches-v2.patch"
+  "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15-r2.patch"
 #   "${_patchsource}/cpu-scheduler/v5.15/tt/high-hz.patch"
-  "${_patchsource}/v5.15/uksm/0001-UKSM-for-5.15.patch"
-  "${_patchsource}/v5.15/cjktty/cjktty-5.15.patch"
-  "${_patchsource}/v5.15/bbr2/0001-bbr2-5.15-introduce-BBRv2.patch"
-  "${_patchsource}/v5.15/bfq-lucjan/5.15-bfq-lucjan-r2K211101v1.patch"
-  "${_patchsource}/v5.15/clear/0001-clearlinux-patches.patch"
+  "${_patchsource}/5.15/uksm/0001-UKSM-for-5.15.patch"
+  "${_patchsource}/5.15/cjktty/cjktty-5.15.patch"
+  "${_patchsource}/5.15/bbr2/0001-bbr2-5.15-introduce-BBRv2.patch"
+  "${_patchsource}/5.15/bfq-lucjan/5.15-bfq-lucjan-r2K211101v1.patch"
+  "${_patchsource}/5.15/clear/0001-clearlinux-patches.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
