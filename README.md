@@ -10,6 +10,7 @@ The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckoliva
 - [BBR](https://github.com/google/bbr) is a congestion control algorithm proposed by Google.
 - [bfq-lucjan](https://gitlab.com/sirlucjan/kernel-patches/tree/master/5.14/bfq-lucjan) is specific patches authored by Paolo Valente and Piotr Gorski.
 - [clear](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
+- [le9](https://github.com/hakavlad/le9-patch) Protect the working set under memory pressure to prevent thrashing, avoid high latency and prevent livelock in near-OOM conditions.
 
 # Build and install
 
