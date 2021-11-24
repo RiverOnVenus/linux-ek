@@ -124,7 +124,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.15/arch/0001-arch-patches-v3.patch"
+  "${_patchsource}/5.15/arch/0001-arch-patches-v5.patch"
   "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15-r2.patch"
 #   "${_patchsource}/cpu-scheduler/v5.15/tt/high-hz.patch"
   "${_patchsource}/5.15/uksm/0001-UKSM-for-5.15.patch"
@@ -143,7 +143,7 @@ b2sums=('1ce31010ecd0945fa8c521da092f6dacef9b1223723fba9c271424427a4b23decac11c6
         '5cbc66a3a595d56b027c8d2303f899dcb3a2bf9d0d09a597c73a64af80153160b648ceaffdb1e92c5dce9f971c25d8665fed60428e58f9729216902151223e2c'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
-        'ab8412992f93275752324b811b79c4a521762a9ba0d87b4f1f5ad9fe1c67cc2d361ba023a85cdba3d1b3eeab9beebaedf9379ca8c04c136c8a17820df023d1d7'
+        'e5a9b1d0fc6c3a908db33806933bbb24cb2512e7698c35b1326c0773ce0753dacef1cad7d50069df3b680acc3ba488baa654826778cddecb16a773aeac69df35'
         'ed569673f97ec9d8d620bdcd3cf5a5c6f72ef3b0b0a809c2a7041414f0d855f0abc331924e25a3d9f07959959ddb54c0f0304cdaa28182ce4791efc5ca797622'
         '33ecbb3c7c3887b187fe951dd1fb897ab5378ecb1e01fa290c31782b10925b5874f0ded96b7a8a2693497fbee2965e9b5e9ff421934fce8a98508af4425ca260'
         '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
