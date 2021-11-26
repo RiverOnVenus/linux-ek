@@ -8,7 +8,6 @@ The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckoliva
 - [UKSM (sources)](https://github.com/dolohow/uksm) / [UKSM (info)](https://www.usenix.org/sites/default/files/conference/protected-files/fast18_slides_xia.pdf) is an improvement upon KSM. Some basic data structures and routines are borrowed from ksm.c .
 - [CJKTTY](https://github.com/zhmars/cjktty-patches) supports displaying CJK Unified Ideographs on Linux tty.
 - [BBR v2](https://github.com/google/bbr) is a congestion control algorithm proposed by Google.
-- [bfq-lucjan](https://gitlab.com/sirlucjan/kernel-patches/tree/master/5.14/bfq-lucjan) is specific patches authored by Paolo Valente and Piotr Gorski.
 - [clear](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
 - [le9](https://github.com/hakavlad/le9-patch) Protect the working set under memory pressure to prevent thrashing, avoid high latency and prevent livelock in near-OOM conditions.
 
