@@ -99,7 +99,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.15.5
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -123,7 +123,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.15/arch/0001-arch-patches-v5.patch"
+  "${_patchsource}/5.15/arch/0001-arch-patches-v6.patch"
   "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15-r2.patch"
   "${_patchsource}/5.15/uksm/0001-UKSM-for-5.15.patch"
   "${_patchsource}/5.15/cjktty/cjktty-5.15.patch"
@@ -140,12 +140,11 @@ b2sums=('2921b549a44ff4202ab96d35d6b7ce99bef914db5c1dba066fb7c4b146ef987d1aed53d
         '5cbc66a3a595d56b027c8d2303f899dcb3a2bf9d0d09a597c73a64af80153160b648ceaffdb1e92c5dce9f971c25d8665fed60428e58f9729216902151223e2c'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
-        'e5a9b1d0fc6c3a908db33806933bbb24cb2512e7698c35b1326c0773ce0753dacef1cad7d50069df3b680acc3ba488baa654826778cddecb16a773aeac69df35'
+        '2e52aa5b77c9b1d04a5436d7257deada790538d981815dd8d2823caf8d05d5fc0fca0da7eca91fe6b9440f736ff9207193806669f18187d41d0e749cf6cba903'
         'ed569673f97ec9d8d620bdcd3cf5a5c6f72ef3b0b0a809c2a7041414f0d855f0abc331924e25a3d9f07959959ddb54c0f0304cdaa28182ce4791efc5ca797622'
         '33ecbb3c7c3887b187fe951dd1fb897ab5378ecb1e01fa290c31782b10925b5874f0ded96b7a8a2693497fbee2965e9b5e9ff421934fce8a98508af4425ca260'
         '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
         'e83b6ae58a6906f97e1ada7369b6dad8ccfb0264537b128e6815d2f47493b20b682c6852621fba75f5a23e92d7c0590bffb7dd7f0960bd33b23434477dde7079'
-        '6b5210bbcbf8687954f2d34b5bebee3290b95059944cce829d6db5b4732f5babe888b922e99177be45befbf13801a5b5d06dcaa4c923d55217cc8410bf2bd99d'
         '790e5def1d2737e888cd8bd5738da391f62fa87989ebc9893d30cd83172bc963b906bd6d4fa4616afa6fe1052bff21ec69c56a7532999b9820b54b7433d7688b'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f')
 
