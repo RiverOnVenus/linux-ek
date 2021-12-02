@@ -98,8 +98,8 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.15.5
-pkgrel=3
+pkgver=5.15.6
+pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -123,7 +123,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.15/arch/0001-arch-patches-v6.patch"
+  "${_patchsource}/5.15/arch/0001-arch-patches-v7.patch"
   "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15-r2.patch"
   "${_patchsource}/5.15/uksm/0001-UKSM-for-5.15.patch"
   "${_patchsource}/5.15/cjktty/cjktty-5.15.patch"
@@ -135,12 +135,12 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('2921b549a44ff4202ab96d35d6b7ce99bef914db5c1dba066fb7c4b146ef987d1aed53d0773fbe07cd6bb3b964d40b6f3f8c47f6a04149ea1c64e2f8f87343bb'
+b2sums=('dedcff13b0829b9bdfc4998a9bedcf932dee48ade3bef722ccbd8fc7bef9832462ac2f1064b77926f86d93c7035634db8ba8f6c1e2d957ff749b34e218c565c7'
         'SKIP'
         '5cbc66a3a595d56b027c8d2303f899dcb3a2bf9d0d09a597c73a64af80153160b648ceaffdb1e92c5dce9f971c25d8665fed60428e58f9729216902151223e2c'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
-        '2e52aa5b77c9b1d04a5436d7257deada790538d981815dd8d2823caf8d05d5fc0fca0da7eca91fe6b9440f736ff9207193806669f18187d41d0e749cf6cba903'
+        '02172dbe1c1349b0109c0dadc03b574e08740725252a078d988f3a744ee89733415d6b8d5c0c543f5a230ac620d5b3094056ff5fbdcd55d7a7a0a694c08c7367'
         'ed569673f97ec9d8d620bdcd3cf5a5c6f72ef3b0b0a809c2a7041414f0d855f0abc331924e25a3d9f07959959ddb54c0f0304cdaa28182ce4791efc5ca797622'
         '33ecbb3c7c3887b187fe951dd1fb897ab5378ecb1e01fa290c31782b10925b5874f0ded96b7a8a2693497fbee2965e9b5e9ff421934fce8a98508af4425ca260'
         '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
