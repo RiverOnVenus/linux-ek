@@ -98,8 +98,8 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.15.6
-pkgrel=3
+pkgver=5.15.7
+pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -123,9 +123,8 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.15/arch/0001-arch-patches-v8.patch"
+  "${_patchsource}/5.15/arch/0001-arch-patches-v9.patch"
   "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15.patch"
-  "${_patchsource}/5.15/uksm/0001-UKSM-for-5.15.patch"
   "${_patchsource}/5.15/cjktty/cjktty-5.15.patch"
   "${_patchsource}/5.15/bbr2/0001-bbr2-5.15-introduce-BBRv2.patch"
   "${_patchsource}/5.15/clear/0001-clearlinux-patches.patch"
@@ -135,14 +134,13 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('dedcff13b0829b9bdfc4998a9bedcf932dee48ade3bef722ccbd8fc7bef9832462ac2f1064b77926f86d93c7035634db8ba8f6c1e2d957ff749b34e218c565c7'
+b2sums=('66894c8d2001bccfbfc9d31d2f68fef64826c088676df94136a4dcf158962c146cc668490d342c2e8bf914903be69f5b4fbc1cd264b844a8d966059bf34fac6f'
         'SKIP'
         '89b9ca4037ea37a226af6fb06750e81d36ddb25c2fef681654930f05c8c954a7d39e3dc6a0bc730b7813c9b1e4411955fb84606aef2450cc832c29c70112565a'
         'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
-        '9864fdaa3500347a40ee28e9de3c0438e5b159a865439d375dac180056a1d5a45eed8f64ccd4dc243b550cdfa3e8bf1af37959b37f9c9a608caca0fcd437fa99'
-        'de4c441ae83bb04ecd0bb9c5add6cd5dfdb68fb1796c9d778866feced79e1c37c9d941d93b59460f0a51a85ca504b053c515c28d8cd02e30598a132863baa3ba'
-        '33ecbb3c7c3887b187fe951dd1fb897ab5378ecb1e01fa290c31782b10925b5874f0ded96b7a8a2693497fbee2965e9b5e9ff421934fce8a98508af4425ca260'
+        '991264299e61e5c8f43ec0a468029e2e0651a7a40cfd735d90f15cae3d8d00d50ef232054c1a08f35e40a256a025d442a3d888b5d12875d3ea6efd131098a3eb'
+        'ebb06fe182f408090974cfa36e0a3fbf33b4025b6fbc3c77af7c446665404a05e7bdbc5239968980bdbc54226ccfaecfd0069efb654a8ef646d113eda4cc8872'
         '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
         'e83b6ae58a6906f97e1ada7369b6dad8ccfb0264537b128e6815d2f47493b20b682c6852621fba75f5a23e92d7c0590bffb7dd7f0960bd33b23434477dde7079'
         '790e5def1d2737e888cd8bd5738da391f62fa87989ebc9893d30cd83172bc963b906bd6d4fa4616afa6fe1052bff21ec69c56a7532999b9820b54b7433d7688b'
