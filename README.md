@@ -28,7 +28,7 @@ updpkgsums && makepkg -srci
 
 ~~If you have done that, just reinstall or install the kernel compiled with CLANG/LLVM/LTO and DKMS will not fail again.~~
 
-Dkms([v0.3.2](https://github.com/dell/dkms/releases/tag/v3.0.2)) support for Clang, use the latest version of dkms and you'll be fine.
+Dkms([v3.0.2](https://github.com/dell/dkms/releases/tag/v3.0.2)) support for Clang, use the latest version of dkms and you'll be fine.
 
 # Check if TT CPU Scheduler is enabled
 
