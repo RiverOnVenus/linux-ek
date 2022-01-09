@@ -100,7 +100,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.15.13
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -117,7 +117,7 @@ options=('!strip')
 _commit=8ba6612318090567422d49ccc79bc7bbe5484cfc
 _xan=linux-5.15.y-xanmod
 
-_gcc_more_v=20210914
+_gcc_more_v=20211114
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 source=(
   "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar".{xz,sign}
@@ -138,7 +138,7 @@ validpgpkeys=(
 b2sums=('ea8775ffb1e25107b62dfe7acac4e9098094f7e1cd9846566cdf9fc1f0a6e2520f27dc48ce85c29e91032eb21a6f6682f6698a91b02b9424f2d895b5c9b468ec'
         'SKIP'
         'aef5a1ce194214874474aea2352b0ed10ecc23e06e0dd4683d4fd5c1f08b9bfa92462c98c268259b04645f7969dcd8511349dbd9e172ed977b171e154ddf0a45'
-        'd1c083f96f645679c5214e05f906b47f17ac6a8b3dd2faeb219e3ceda3a008e3fe47c4a79b0345978cec5c5e28da9b20727970cf5c788d52c3782dc5b36aa211'
+        '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
         'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
         'a2c350e702560675b7e89c89bd42a2553cd425736c871a4736a260efa59408a1701bd400e3ca43b855255e59c21483d41cbc9ee4c908f2e5efd389cbd40b0ae5'
         'bd68d3d59677556489433a8186c2c25861eb725c1a2e20baafb1b2edd9dc0656b1fefc80416fab096af61ff2cc7848569b0029c19ae7d0b2de3a93b7d328bf10'
