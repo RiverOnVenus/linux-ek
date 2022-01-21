@@ -316,7 +316,7 @@ prepare() {
 
 build() {
   cd linux-${pkgver}
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM -j$(nproc) all
+  make LLVM=$_LLVM LLVM_IAS=$_LLVM all
 }
 
 _package() {
