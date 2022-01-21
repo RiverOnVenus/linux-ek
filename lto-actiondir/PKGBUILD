@@ -49,6 +49,7 @@ _1666_HZ_ticks=
 # the next tick happens (if you chose 10k Hz, it will tick every 100us).
 # _10000_HZ_ticks=
 
+
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
 # option is 36.
@@ -98,7 +99,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.15.14
+pkgver=5.16.2
 pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -113,7 +114,7 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # thankfully xanmod keeps the hrtimer patches up to date
-_commit=8ba6612318090567422d49ccc79bc7bbe5484cfc
+_commit=6b08df20f31708099a7fbccf5448958b4836118f
 _xan=linux-5.15.y-xanmod
 
 _gcc_more_v=20211114
@@ -123,27 +124,27 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.15/arch/0001-arch-patches-v11.patch"
-  "${_patchsource}/cpu-scheduler/5.15/tt/tt-5.15.patch"
-  "${_patchsource}/5.15/cjktty/cjktty-5.15.patch"
-  "${_patchsource}/5.15/bbr2/0001-bbr2-5.15-introduce-BBRv2.patch"
-  "${_patchsource}/5.15/clear/0001-clearlinux-patches-v2.patch"
-  "${_patchsource}/5.15/le9ec/le9ec-5.15.patch"
+  "${_patchsource}/5.16/arch/0001-arch-patches.patch"
+  "${_patchsource}/cpu-scheduler/5.16/tt/tt-5.16.patch"
+  "${_patchsource}/5.16/cjktty/cjktty-5.16.patch"
+  "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
+  "${_patchsource}/5.16/clear/0001-clearlinux.patch"
+  "${_patchsource}/5.16/le9ec/le9ec-5.15.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('4276e3a03f6a8fb44ce91f11ff4abbf8e0aca20122c5c1231da74fccab1105af8a76c34a686ba8b038737ec5117d64b549e85cbfc1b3238c69bbf8149e8f7774'
+b2sums=('6f07d9da86101ab72eadd53a9f58a4740037608a006fc622a923d4dd9578ce62cc9959711dca2e953e3fb68286f55fb14be04a4a00fc49a33c2c28bd5944532f'
         'SKIP'
-        'aef5a1ce194214874474aea2352b0ed10ecc23e06e0dd4683d4fd5c1f08b9bfa92462c98c268259b04645f7969dcd8511349dbd9e172ed977b171e154ddf0a45'
+        '305f3f3a87e67e632f587c5e12db9cba20ef4f23ef636ee1967bc31910aac317daf480d3b887831a0d84b808dbfa2da53fff68e08fcbbb30c15cddfd78d5b40f'
         '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
-        'cf589ec357a96b9e573bce298bb1d64fa50339ea047767f2a730a8dc9808e2316b3e7c885d730233ba50d570725d4c72632d1b74a371ef02ac471d4c944fe63e'
-        'a2c350e702560675b7e89c89bd42a2553cd425736c871a4736a260efa59408a1701bd400e3ca43b855255e59c21483d41cbc9ee4c908f2e5efd389cbd40b0ae5'
-        'bd68d3d59677556489433a8186c2c25861eb725c1a2e20baafb1b2edd9dc0656b1fefc80416fab096af61ff2cc7848569b0029c19ae7d0b2de3a93b7d328bf10'
-        '2b765bd1aad8086a94ec9285e4d789eacdff05fcc71013286384a51de6f6cc153cecffd4430cfc08daae4692583577b5eb07f971eb00bcd1ca796063865c20f7'
-        'e83b6ae58a6906f97e1ada7369b6dad8ccfb0264537b128e6815d2f47493b20b682c6852621fba75f5a23e92d7c0590bffb7dd7f0960bd33b23434477dde7079'
-        '77876addaef61169f884cd6741f3c1c93b19165c1510329a0b84b732c72c1d84cab1f1b35d9d36b81159748fad32fb41213886ba912f92805d92845785790f55'
+        '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
+        'b450eb15cfb2beb3277c85656f319b063206a305ca99b38f695289889ae6f94c47f48483e4f3502705dbe7a7854b912767ce0d8296c0124c5968676e3cf64c6a'
+        'ecc740bb302b67ab1228be17c9c2e81259b19aef5efe50d887cb7224a750fedf6c01d7446f8b96b4ddd7eaf7097750108046e46b4afb13f93bf7fc30a3397799'
+        'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
+        '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
+        '4778fc0c6c0a03b6bd13e8b337c5c7e2e330132317e673efa45d643a489bc7c68c3e524ff72eca5cb12bee0f0043c03ca5795fd4aef2c2d6cbbb6d45fa682dea'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f')
 
 export KBUILD_BUILD_HOST=archlinux
@@ -207,6 +208,7 @@ prepare() {
 #   scripts/config --set-val CONFIG_HZ 1000
 
     ### Optionally set tickrate 
+
 	if [ -n "$_417_HZ_ticks" ]; then
 		echo "Setting tick rate to 417Hz..."
 		scripts/config --disable CONFIG_HZ_300
@@ -250,7 +252,7 @@ prepare() {
 	fi
 
 	if [ -n "$_10000_HZ_ticks" ]; then
-		echo "Setting tick rate to 10000Hz..."
+		echo "Setting tick rate to 5000Hz..."
 		scripts/config --disable CONFIG_HZ_300
 		scripts/config --enable CONFIG_HZ_10000
 		scripts/config --set-val CONFIG_HZ 10000
