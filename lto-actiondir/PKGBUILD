@@ -99,7 +99,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.16.3
+pkgver=5.16.4
 pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -124,7 +124,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.16/arch/0001-arch-patches.patch"
+  "${_patchsource}/5.16/arch/0001-arch-patches-v2.patch"
   "${_patchsource}/cpu-scheduler/5.16/tt/tt-5.16.patch"
   "${_patchsource}/5.16/cjktty/cjktty-5.16.patch"
   "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
@@ -135,12 +135,12 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('69e27d11073f60f7ed28e500f52b8b86c98fd080827947bac91f59013b10a37350b22403bfbd9a705c6d0a14c4ddef0547ab61b64bcefbde46f707a5e2a10b40'
+b2sums=('f55ad08f653d0f77926369ea86019513a8de6190d40315f3377e3b48e29dca7498f2af67420b79b90d60d697621df11d5a2d9834436bc5fb563723a8ab1f0e59'
         'SKIP'
         'ec12032245b2b6022721279893b6c40246cf10e34e70c4a60974aab5c4734ee058406bd2ba8524d94a4fa6064a21cb1e88e466089c0327ae644bdbbbaa284b4c'
         '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
         '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
-        'b450eb15cfb2beb3277c85656f319b063206a305ca99b38f695289889ae6f94c47f48483e4f3502705dbe7a7854b912767ce0d8296c0124c5968676e3cf64c6a'
+        'f342bff2e44d4d9d1b2b70681d6e9a8fc229bba3e348a8e8197fe6b012a3a24cd46724353a98a96e7703485a4f0924a52608141e2ea582dc37feeda715097ed8'
         '1c8581b22af6f00ed59acf45c3998eef6cd6c5ca76af29527b07aacf1b6923aad0444951c20019580a857c9d7761be21ab351829028c4c6d660f00854206e55a'
         'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
         '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
