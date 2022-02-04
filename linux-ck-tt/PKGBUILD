@@ -1,6 +1,7 @@
 # Maintainer: RiverOnVenus <RiverOnVenus@gmail.com>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: graysky <graysky AT archlinux DOT us>
+# Contributor: Piotr Gorski <lucjan.lucjanov@gmail.com>
 
 ### BUILD OPTIONS
 # Set the next two variables to ANYTHING that is not null to enable them
@@ -49,6 +50,8 @@ _1666_HZ_ticks=
 # the next tick happens (if you chose 10k Hz, it will tick every 100us).
 # _10000_HZ_ticks=
 
+### Enable KBUILD_CFLAGS -O3
+_cc_harder=y
 
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
@@ -100,7 +103,7 @@ _subarch=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.16.5
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -130,6 +133,7 @@ source=(
   "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
   "${_patchsource}/5.16/clear/0001-clearlinux.patch"
   "${_patchsource}/5.16/le9ec/le9ec-5.15.patch"
+  "${_patchsource}/5.16/O3/0002-init-Kconfig-enable-O3-for-all-arches.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -145,7 +149,8 @@ b2sums=('9eccc20c59a93aa21349ce99b88638de8bb0589037e91143d23932cb5312878bac7ae95
         'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
         '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
         '4778fc0c6c0a03b6bd13e8b337c5c7e2e330132317e673efa45d643a489bc7c68c3e524ff72eca5cb12bee0f0043c03ca5795fd4aef2c2d6cbbb6d45fa682dea'
-        '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f')
+        '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
+        '3446e4e9176b684bc1d3cf8b59c000d140385ab6233396841e72a4c3345bd21a8039e8d210baea8ab4131d84ebfd89eab70374080fec42f899e649096bdb5200')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -173,10 +178,9 @@ prepare() {
   
     # clang Full LTO
     if [ "${_compiler}" = "clang" ]; then
-     	echo "Enable FULL LTO"
+     	echo "Enable THIN LTO"
     scripts/config --disable CONFIG_LTO_NONE
-    scripts/config --disable CONFIG_LTO_CLANG_THIN
-    scripts/config --enable CONFIG_LTO_CLANG_FULL
+    scripts/config --enable CONFIG_LTO_CLANG_THIN
     _LLVM=1
   fi
 
@@ -257,6 +261,13 @@ prepare() {
 		scripts/config --enable CONFIG_HZ_10000
 		scripts/config --set-val CONFIG_HZ 10000
 	fi
+
+	    ### Enable KBUILD_CFLAGS -O3
+	if [ -n "$_cc_harder" ]; then
+		echo "Enabling KBUILD_CFLAGS -O3..."
+		scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+		scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+        fi
 
 # BBR2
   scripts/config --module CONFIG_TCP_CONG_CUBIC
