@@ -103,7 +103,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.16.7
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -127,7 +127,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.16/arch/0001-arch-patches-v2.patch"
+  "${_patchsource}/5.16/arch/0001-arch-patches-v3.patch"
   "${_patchsource}/cpu-scheduler/5.16/tt/tt-5.16.patch"
   "${_patchsource}/5.16/cjktty/cjktty-5.16.patch"
   "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
@@ -144,7 +144,7 @@ b2sums=('3b77442d05fe1550f608f8e715e99eba099270b409f2a0adf4acf5298b75c3bf4087f73
         'ec12032245b2b6022721279893b6c40246cf10e34e70c4a60974aab5c4734ee058406bd2ba8524d94a4fa6064a21cb1e88e466089c0327ae644bdbbbaa284b4c'
         '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
         '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
-        'f342bff2e44d4d9d1b2b70681d6e9a8fc229bba3e348a8e8197fe6b012a3a24cd46724353a98a96e7703485a4f0924a52608141e2ea582dc37feeda715097ed8'
+        '3331f0cc7d8126ac5d3bc382bdebdadafae36b0b00595b1647a82c54f0f0aae960533c0e6e6cac0831c957153636d8d43e269c5f7a17ec4dd02d967383ea02b0'
         '1c8581b22af6f00ed59acf45c3998eef6cd6c5ca76af29527b07aacf1b6923aad0444951c20019580a857c9d7761be21ab351829028c4c6d660f00854206e55a'
         'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
         '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
