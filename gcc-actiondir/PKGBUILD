@@ -103,7 +103,7 @@ _subarch=36
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.16.11
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -127,7 +127,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.16/arch/0001-arch-patches-v4.patch"
+  "${_patchsource}/5.16/arch/0001-arch-patches-v5.patch"
   "${_patchsource}/cpu-scheduler/5.16/tt/tt-5.16.patch"
   "${_patchsource}/5.16/cjktty/cjktty-5.16.patch"
   "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
@@ -144,7 +144,7 @@ b2sums=('165fc78193959c0876158b3448fe33361a9b30ead17f216b92f94a11aad7a6a0e38a852
         '22a252b09951be3b71158dd930132ce59a2bb778b07f710df914b550af4721a42a0a8f840e8998accf088579359330b203839717ee17cd4ef6d73ce5ab43f04e'
         '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
         '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
-        '0d9921df4a3de28eff356fd327046231fd9a5d6a6af5bcaa9cd39ba50c70ec413d52213f0cfc1e28ab6a28d5b621859dd2af3a49e16891375bdfd7a5b66b9e34'
+        'a2da751222de57a74f9188d3cd6f3613d84fbb179c567d4b095e178442d5b3d66a3c436dae277a5e547999e13d604aaee6048f1f7fe6826c99ce2bb278e378c0'
         '1c8581b22af6f00ed59acf45c3998eef6cd6c5ca76af29527b07aacf1b6923aad0444951c20019580a857c9d7761be21ab351829028c4c6d660f00854206e55a'
         'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
         '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
