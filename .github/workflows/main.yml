@@ -19,8 +19,9 @@ jobs:
     - name: Release
       uses: ncipollo/release-action@v1.8.6
       with:
-          allowUpdates: 1
-          tag: "5.16.12-2-gcc"
+          allowUpdates: true
+          tag: "5.16.12-3-gcc"
+          commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GH_TOKEN }}
   build_with_lto:
@@ -37,9 +38,10 @@ jobs:
           makepkgArgs: "--skippgpcheck --noconfirm -s"
           aurDeps: 1
     - name: Release
-      uses: ncipollo/release-action@v1.8.6
+      uses: ncipollo/release-action@v1.9.0
       with:
-          allowUpdates: 1
-          tag: "5.16.12-2-lto"
+          allowUpdates: true
+          tag: "5.16.12-3-lto"
+          commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GH_TOKEN }}
