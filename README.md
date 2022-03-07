@@ -8,6 +8,7 @@ The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckoliva
 - [CJKTTY](https://github.com/zhmars/cjktty-patches) supports displaying CJK Unified Ideographs on Linux tty.
 - [BBR v2](https://github.com/google/bbr) is a congestion control algorithm proposed by Google.
 - [clear](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
+- [bfq-lucjan](https://github.com/sirlucjan/kernel-patches/tree/master/5.16/bfq-lucjan) specific patches authored by Paolo Valente and Piotr Gorski.
 - [le9](https://github.com/hakavlad/le9-patch) Protect the working set under memory pressure to prevent thrashing, avoid high latency and prevent livelock in near-OOM conditions.
 
 # Build and install
@@ -84,9 +85,15 @@ vm.swappiness = 100
 
 # Changing I/O scheduler if you want
 
+**bfq is enabled by default.**([bfq-lucjan](https://github.com/sirlucjan/kernel-patches/tree/master/5.16/bfq-lucjan))
+
+```bash
+# cat /sys/block/sda/queue/scheduler
+```
+
 To change the active I/O scheduler to *bfq* for device *sda*, use:
 
-```
+```bash
 # echo bfq > /sys/block/sda/queue/scheduler
 ```
 
@@ -105,12 +112,12 @@ ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue
 
 If rules fail to reload automatically, use:
 
-```
+```bash
 # udevadm control --reload
 ```
 
 To manually force *udev* to trigger your rules, use:
 
-```
+```bash
 # udevadm trigger
 ```
