@@ -103,7 +103,7 @@ _subarch=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.16.12
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -180,7 +180,7 @@ prepare() {
     if [ "${_compiler}" = "clang" ]; then
      	echo "Enable THIN LTO"
     scripts/config --disable CONFIG_LTO_NONE
-    scripts/config --enable CONFIG_LTO_CLANG_THIN
+    scripts/config --enable CONFIG_LTO_CLANG_FULL
     _LLVM=1
   fi
 
