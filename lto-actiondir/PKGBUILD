@@ -102,7 +102,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.16.13
+pkgver=5.16.14
 pkgrel=1
 arch=(x86_64)
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -140,9 +140,9 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('6631cd1c19819a4cb2ba747eb62590f0f7739ef8c00302a78cffc0af907fbad135f3cf2934fbf403940c3331b015f8dd9bdf0362315feab7a3ff45076ed04515'
+b2sums=('151fa2d87c04de862913c360fb8bdb4d2cf4cbc7ca9777b97ee3f03005e8d5ef72b307fa5787ae53157291773158bca6b499cb1e71f6dc5098f424e15ff6c948'
         'SKIP'
-        '22a252b09951be3b71158dd930132ce59a2bb778b07f710df914b550af4721a42a0a8f840e8998accf088579359330b203839717ee17cd4ef6d73ce5ab43f04e'
+        'f37b180eac2737e7398654c9cf2d3b0ee93b194804d22827ad776a605692ddc098cba8ca7ba7dc2f2959cabc4eca92c73cdacbfa34182fdb98ab9199f161b5c4'
         '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
         '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
         'a2da751222de57a74f9188d3cd6f3613d84fbb179c567d4b095e178442d5b3d66a3c436dae277a5e547999e13d604aaee6048f1f7fe6826c99ce2bb278e378c0'
@@ -270,7 +270,9 @@ prepare() {
 		scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
 		scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
         fi
-
+    scripts/config --set-val CONFIG_ANON_MIN_KBYTES 0
+    scripts/config --set-val CONFIG_CLEAN_LOW_KBYTES 524288
+    scripts/config --set-val CONFIG_CLEAN_MIN_KBYTES 0
 # BBR2
   scripts/config --module CONFIG_TCP_CONG_CUBIC
   scripts/config --disable CONFIG_DEFAULT_CUBIC
