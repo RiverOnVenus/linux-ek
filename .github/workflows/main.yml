@@ -20,7 +20,7 @@ jobs:
       uses: ncipollo/release-action@v1.8.6
       with:
           allowUpdates: true
-          tag: "5.16.14-1-gcc"
+          tag: "5.16.15-1-gcc"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GH_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
       uses: ncipollo/release-action@v1.9.0
       with:
           allowUpdates: true
-          tag: "5.16.14-1-lto"
+          tag: "5.16.15-1-lto"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GH_TOKEN }}
