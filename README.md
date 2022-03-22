@@ -13,6 +13,23 @@ The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckoliva
 
 # Build and install
 
+Open `/etc/pacman.conf` and comment out the original Architecture, then add the new Architecture.
+
+```
+#Architecture = auto
+Architecture = x86_64 x86_64_v3
+```
+
+Selecting the correct CPU optimized package.
+
+```
+/lib/ld-linux-x86-64.so.2 --help | grep supported
+```
+
+If `x86-64-v3 (supported, searched)` is in the output, use the *Generic-x86-64-v3 (GENERIC_CPU3)*.
+
+You can compile it yourself and choose the optimization option that suits you.
+
 ```
 git clone https://github.com/RiverOnVenus/linux-ck-tt.git
 
@@ -20,6 +37,8 @@ cd linux-ck-tt/linux-ck-tt
 
 updpkgsums && makepkg -srci
 ```
+
+You can also [download](https://github.com/RiverOnVenus/linux-ck-tt/releases) the compiled package.
 
 # Clang and DKMS
 
@@ -87,13 +106,13 @@ vm.swappiness = 100
 
 **bfq is enabled by default.**([bfq-lucjan](https://github.com/sirlucjan/kernel-patches/tree/master/5.16/bfq-lucjan))
 
-```bash
+```
 # cat /sys/block/sda/queue/scheduler
 ```
 
 To change the active I/O scheduler to *bfq* for device *sda*, use:
 
-```bash
+```
 # echo bfq > /sys/block/sda/queue/scheduler
 ```
 
@@ -112,12 +131,12 @@ ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue
 
 If rules fail to reload automatically, use:
 
-```bash
+```
 # udevadm control --reload
 ```
 
 To manually force *udev* to trigger your rules, use:
 
-```bash
+```
 # udevadm trigger
 ```
