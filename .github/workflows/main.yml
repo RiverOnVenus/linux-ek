@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  build_with_gcc:
+  build_with_gcc_x86_64:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -12,7 +12,7 @@ jobs:
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.7
       with:
-          pkgdir: "gcc-actiondir"
+          pkgdir: "gcc-x86-64-actiondir"
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
           aurDeps: 1
@@ -20,11 +20,11 @@ jobs:
       uses: ncipollo/release-action@v1.8.6
       with:
           allowUpdates: true
-          tag: "5.16.15-1-gcc"
+          tag: "5.16.16-1-gcc-x86-64"
           commit: master
           artifacts: "./*/*.zst"
-          token: ${{ secrets.GH_TOKEN }}
-  build_with_lto:
+          token: ${{ secrets.GITHUB_TOKEN }}
+  build_with_llvm_lto_x86_64:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -33,7 +33,7 @@ jobs:
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.6
       with:
-          pkgdir: "lto-actiondir"
+          pkgdir: "llvm-lto-x86-64-actiondir"
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
           aurDeps: 1
@@ -41,7 +41,49 @@ jobs:
       uses: ncipollo/release-action@v1.9.0
       with:
           allowUpdates: true
-          tag: "5.16.15-1-lto"
+          tag: "5.16.16-1-llvm-lto-x86-64"
           commit: master
           artifacts: "./*/*.zst"
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+  build_with_gcc_x86_64_v3:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Makepkg Build and Check
+      id: makepkg
+      uses: edlanglois/pkgbuild-action@v1.1.7
+      with:
+          pkgdir: "gcc-x86-64-v3-actiondir"
+          namcapDisable: 1
+          makepkgArgs: "--skippgpcheck --noconfirm -s"
+          aurDeps: 1
+    - name: Release
+      uses: ncipollo/release-action@v1.8.6
+      with:
+          allowUpdates: true
+          tag: "5.16.16-1-gcc-x86-64-v3"
+          commit: master
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+  build_with_llvm_lto_x86_64_v3:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+    - name: Makepkg Build and Check
+      id: makepkg
+      uses: edlanglois/pkgbuild-action@v1.1.6
+      with:
+          pkgdir: "llvm-lto-x86-64-v3-actiondir"
+          namcapDisable: 1
+          makepkgArgs: "--skippgpcheck --noconfirm -s"
+          aurDeps: 1
+    - name: Release
+      uses: ncipollo/release-action@v1.9.0
+      with:
+          allowUpdates: true
+          tag: "5.16.16-1-llvm-lto-x86-64-v3"
+          commit: master
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
