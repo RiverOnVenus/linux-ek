@@ -101,11 +101,11 @@ _cc_harder=y
 _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
-pkgbase=linux-ck
+pkgbase=linux-ck-tt
 pkgver=5.17.3
 pkgrel=2
-arch=(x86_64)
-url="https://wiki.archlinux.org/index.php/Linux-ck"
+arch=('x86_64' 'x86_64_v3')
+url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
 depends=(coreutils kmod initramfs)
 makedepends=(
@@ -179,6 +179,14 @@ prepare() {
 
   echo "Setting config..."
   cp ../config .config
+
+    # clang Full LTO
+    if [ "${_compiler}" = "clang" ]; then
+     	echo "Enable FULL LTO"
+    scripts/config --disable CONFIG_LTO_NONE
+    scripts/config --enable CONFIG_LTO_CLANG_FULL
+    _LLVM=1
+  fi
 
   # disable CONFIG_DEBUG_INFO=y at build time otherwise memory usage blows up
   # and can easily overwhelm a system with 32 GB of memory using a tmpfs build
@@ -326,11 +334,11 @@ prepare() {
 
 build() {
   cd linux-${pkgver}
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM all
+  make LLVM=$_LLVM LLVM_IAS=$_LLVM -j$(nproc) all
 }
 
 _package() {
-  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules with ck's hrtimer patches"
+  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
   depends=(coreutils kmod initramfs)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
