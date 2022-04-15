@@ -56,6 +56,8 @@ _cc_harder=y
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
 # option is 36.
+_subarch=38
+
 #
 #  1. AMD Opteron/Athlon64/Hammer/K8 (MK8)
 #  2. AMD Opteron/Athlon64/Hammer/K8 with SSE3 (MK8SSE3) (NEW)
@@ -98,16 +100,14 @@ _cc_harder=y
 #  39. Generic-x86-64-v4 (GENERIC_CPU4) (NEW)
 #  40. Intel-Native optimizations autodetected by GCC (MNATIVE_INTEL) (NEW)
 #  41. AMD-Native optimizations autodetected by GCC (MNATIVE_AMD) (NEW)
-_subarch=38
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.17.3
-pkgrel=2
+pkgrel=4
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
-depends=(coreutils kmod initramfs)
 makedepends=(
   bc libelf        cpio perl tar xz
 )
@@ -117,9 +117,9 @@ fi
 options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
-# thankfully xanmod keeps the hrtimer patches up to date
-_commit=bc1b55888981e44698a1dfccc06821522e6be010
-_xan=linux-5.17.y-xanmod
+# acknowledgment to xanmod for initially keeping the hrtimer patches up to date
+_ckhrtimer=linux-5.17.y
+_commit=5d3a0424bdbfdf2fc4cca389bf0f1ee4876e782d
 
 _gcc_more_v=20220315
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
@@ -127,8 +127,7 @@ source=(
   "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar".{xz,sign}
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
-  #"xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
+"ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "${_patchsource}/5.17/arch/0001-arch-patches.patch"
   "${_patchsource}/cpu-scheduler/5.17/tt/0001-tt.patch"
   "${_patchsource}/5.17/cjktty/cjktty-5.17.patch"
@@ -146,7 +145,7 @@ b2sums=('03fd68cd2a9c70fcb20dbec8b62f524f032924cf3ba555d78a2348b80bbe61735e6140d
         'SKIP'
         '3d1e2c1dff1e828c655b449962fb47c49fdf77d58c65c8af41ee8c56fbb2d8fdb7d0b963c775b26ac4022c6e0f9c8d19c11bc1e0e358580396520e9261bc8eeb'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
-        '96a893b65eb7f87c133b7a8d069c776950d41589e89096aad08601acaa3d67e3cad00c1611de526797d9f8785996ceb7c083aeb9aa248b5151fdc45b34764fba'
+        '5b8bbc1cea385c8ba635722c7011529bd72b7056b4de607abf18015513426941bac05467072d61529af332b98cae9de19f763b741bff50aa76d5f031339b779e'
         'd4ca16415490b4498863342f47050805c502a876d1412d2f9694e10879fcf2ff6ea903fe1f392dc4120e8d50a669b877ccc97ca6606ef895c1e6a7e48804b90a'
         'd88a1ca68a97c21d8cf5c5bd3ed67718b286f7f80cf9ee927c4a25dbceaef8cde7686c294421cbce039cb44397327d04cc2114d751b2ac8c9fec892790524490'
         'e977e75db39b444b5d23a67e96eacbb0d065798e5ed86dfe0013b15975ee35e19cedd213e0b3c306ef924b6e5d0d3cae4e650cb9e16a127b09888ffd515d406a'
@@ -156,14 +155,10 @@ b2sums=('03fd68cd2a9c70fcb20dbec8b62f524f032924cf3ba555d78a2348b80bbe61735e6140d
         'aa16a394a1d4180f80b5bcdd0ee8604630f00b6519a2fe900fc09207c38253eb6802e27a7d72e207c099f3521c90ec95667190413e21e3e1f97f5ca30e9236bb'
         '027b40cb4bdd9aeacf029725feb83f4cb24d893257460306dfe233bf1d97a599209506ba7b5bea1feb0c420858b6b8351b521019ada14bc93f66896aa266aac1')
 
-export KBUILD_BUILD_HOST=archlinux
-export KBUILD_BUILD_USER=$pkgbase
-export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
-
 prepare() {
   cd linux-${pkgver}
 
-  echo "Setting version..."
+  msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux}" > localversion.20-pkgname
@@ -286,7 +281,7 @@ prepare() {
   # these are ck's htrimer patches
   echo "Patching with ck hrtimer patches..."
 
-  for i in ../linux-patches-"$_commit"/"$_xan"/ck-hrtimer/0*.patch; do
+  for i in ../linux-patches-"$_commit"/"$_ckhrtimer"/ck-hrtimer/0*.patch; do
     patch -Np1 -i $i
   done
 
@@ -343,6 +338,7 @@ _package() {
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
   provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
+  replaces=(virtualbox-guest-modules-arch wireguard-arch)
   #groups=('ck-generic')
 
   cd linux-${pkgver}
