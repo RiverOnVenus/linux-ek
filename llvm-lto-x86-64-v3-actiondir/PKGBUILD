@@ -101,14 +101,15 @@ _cc_harder=y
 _subarch=38
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
-pkgbase=linux-ck-tt
-pkgver=5.16.20
-pkgrel=1
-arch=('x86_64' 'x86_64_v3')
-url="https://github.com/RiverOnVenus/linux-ck-tt"
+pkgbase=linux-ck
+pkgver=5.17.3
+pkgrel=2
+arch=(x86_64)
+url="https://wiki.archlinux.org/index.php/Linux-ck"
 license=(GPL2)
+depends=(coreutils kmod initramfs)
 makedepends=(
-  bc kmod libelf        cpio perl tar xz
+  bc libelf        cpio perl tar xz
 )
 if [ "${_compiler}" = "clang" ]; then
   makedepends+=(clang llvm lld python)
@@ -117,41 +118,43 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # thankfully xanmod keeps the hrtimer patches up to date
-_commit=6b08df20f31708099a7fbccf5448958b4836118f
-_xan=linux-5.15.y-xanmod
+_commit=bc1b55888981e44698a1dfccc06821522e6be010
+_xan=linux-5.17.y-xanmod
 
-_gcc_more_v=20211114
+_gcc_more_v=20220315
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 source=(
   "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar".{xz,sign}
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
-  "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.16/arch/0001-arch-patches-v5.patch"
-  "${_patchsource}/cpu-scheduler/5.16/tt/tt-5.16.patch"
-  "${_patchsource}/5.16/cjktty/cjktty-5.16.patch"
-  "${_patchsource}/5.16/bbr2/0001-bbr2-patches.patch"
-  "${_patchsource}/5.16/clear/0001-clearlinux.patch"
-  "${_patchsource}/5.16/le9ec/le9ec-5.15.patch"
-  "${_patchsource}/5.16/O3/0002-init-Kconfig-enable-O3-for-all-arches.patch"
-#   "${_patchsource}/5.16/bfq-lucjan/5.16-bfq-lucjan-r2K220307v1.patch"
+  #"xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/xanmod/linux-patches/archive/$_commit.tar.gz"
+  "xanmod-patches-from-ck-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
+  "${_patchsource}/5.17/arch/0001-arch-patches.patch"
+  "${_patchsource}/cpu-scheduler/5.17/tt/0001-tt.patch"
+  "${_patchsource}/5.17/cjktty/cjktty-5.17.patch"
+  "${_patchsource}/5.17/bbr2/0001-bbr2-5.17-introduce-BBRv2.patch"
+  "${_patchsource}/5.17/clear/0001-clearlinux-patches.patch"
+  "${_patchsource}/5.17/le9/le9ec-5.17.patch"
+  "${_patchsource}/5.17/O3/0002-init-Kconfig-enable-O3-for-all-arches.patch"
+  "${_patchsource}/5.17/bfq-lucjan/5.17-bfq-lucjan-r2K220408v3.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('798baf7051b3f20d34741067769c6a59a04ba922468789e61ce5a6c4d0c3d336a0f3bacc9f482827722e7577828140772e5cbd76b844cc836d4d6b26e0c154ec'
+b2sums=('03fd68cd2a9c70fcb20dbec8b62f524f032924cf3ba555d78a2348b80bbe61735e6140d0d38d74bf3051ac19a67be7c62c67dfc9ef697097ed24637427e72dc7'
         'SKIP'
         'f865b67f9ea37622344d59ea1098ca818d426eca33225d2cb819f3781b1e61780df15473c75e9586f2b45ae0768666acbcdd6a36113bbb51a3b60e637f6e9519'
-        '534091fb5034226d48f18da2114305860e67ee49a1d726b049a240ce61df83e840a9a255e5b8fa9279ec07dd69fb0aea6e2e48962792c2b5367db577a4423d8d'
-        '7e12da62ddc8535b044f57447e15b550dc2d1421bba4fc830dfad7b328b01f21190f63c5534b9af6a8c09f56bfb9c21014b07645569a6c7b93b950aca07ade5a'
-        'a2da751222de57a74f9188d3cd6f3613d84fbb179c567d4b095e178442d5b3d66a3c436dae277a5e547999e13d604aaee6048f1f7fe6826c99ce2bb278e378c0'
-        '1c8581b22af6f00ed59acf45c3998eef6cd6c5ca76af29527b07aacf1b6923aad0444951c20019580a857c9d7761be21ab351829028c4c6d660f00854206e55a'
-        'f6d944b55223340d9b3919100c8995e95169ef55193cf5264ddea52757dbdae38bec497899ddc084fef11e457206aaa77ccef76c3299b8585b7014b9155463a6'
-        '36d2b9fda4230c54c7bf64f1ef8e4ee8e3c9f0c04c57ac47a3640353b32df36b24e86d39c33cc82d87f0a42d2e2627fc4c7d312644f2d218ec365332e4224611'
-        '4778fc0c6c0a03b6bd13e8b337c5c7e2e330132317e673efa45d643a489bc7c68c3e524ff72eca5cb12bee0f0043c03ca5795fd4aef2c2d6cbbb6d45fa682dea'
+        '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
+        '96a893b65eb7f87c133b7a8d069c776950d41589e89096aad08601acaa3d67e3cad00c1611de526797d9f8785996ceb7c083aeb9aa248b5151fdc45b34764fba'
+        'd4ca16415490b4498863342f47050805c502a876d1412d2f9694e10879fcf2ff6ea903fe1f392dc4120e8d50a669b877ccc97ca6606ef895c1e6a7e48804b90a'
+        'd88a1ca68a97c21d8cf5c5bd3ed67718b286f7f80cf9ee927c4a25dbceaef8cde7686c294421cbce039cb44397327d04cc2114d751b2ac8c9fec892790524490'
+        'e977e75db39b444b5d23a67e96eacbb0d065798e5ed86dfe0013b15975ee35e19cedd213e0b3c306ef924b6e5d0d3cae4e650cb9e16a127b09888ffd515d406a'
+        '762ae80c5542c9773ff646dfb90b9be70469c37378f52a5e3d0c7d27d486fa92ce40750bfb7fb9c0d5bfb13686c9605127a5d10132f5606c066baf22b87f6ca8'
+        '00d1bec01749c29d78bdeb3d8a9bf3688e1c78b4d911820f6423205a2a9350866763c51a1d84d59d6e384563906f5186eb3e13e24460943cb6125e884a19bdfc'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
-        '3446e4e9176b684bc1d3cf8b59c000d140385ab6233396841e72a4c3345bd21a8039e8d210baea8ab4131d84ebfd89eab70374080fec42f899e649096bdb5200')
+        'aa16a394a1d4180f80b5bcdd0ee8604630f00b6519a2fe900fc09207c38253eb6802e27a7d72e207c099f3521c90ec95667190413e21e3e1f97f5ca30e9236bb'
+        '027b40cb4bdd9aeacf029725feb83f4cb24d893257460306dfe233bf1d97a599209506ba7b5bea1feb0c420858b6b8351b521019ada14bc93f66896aa266aac1')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -176,14 +179,6 @@ prepare() {
 
   echo "Setting config..."
   cp ../config .config
-  
-    # clang Full LTO
-    if [ "${_compiler}" = "clang" ]; then
-     	echo "Enable THIN LTO"
-    scripts/config --disable CONFIG_LTO_NONE
-    scripts/config --enable CONFIG_LTO_CLANG_FULL
-    _LLVM=1
-  fi
 
   # disable CONFIG_DEBUG_INFO=y at build time otherwise memory usage blows up
   # and can easily overwhelm a system with 32 GB of memory using a tmpfs build
@@ -201,16 +196,14 @@ prepare() {
 
   # https://bbs.archlinux.org/viewtopic.php?pid=1863567#p1863567
   scripts/config --disable CONFIG_LATENCYTOP
-#   scripts/config --disable CONFIG_SCHED_DEBUG
+  scripts/config --disable CONFIG_SCHED_DEBUG
 
   # FS#66613
   # https://bugzilla.kernel.org/show_bug.cgi?id=207173#c6
   scripts/config --disable CONFIG_KVM_WERROR
   
   # ck recommends 1000 Hz tick and the hrtimer patches in lieu of ck1
-#   scripts/config --disable CONFIG_HZ_300
 #   scripts/config --enable CONFIG_HZ_1000
-#   scripts/config --set-val CONFIG_HZ 1000
 
     ### Optionally set tickrate 
 
@@ -276,6 +269,11 @@ prepare() {
   scripts/config --enable CONFIG_TCP_CONG_BBR2
   scripts/config --enable CONFIG_DEFAULT_BBR2
   scripts/config --set-str CONFIG_DEFAULT_TCP_CONG bbr2
+  
+  #le9
+    scripts/config --set-val CONFIG_ANON_MIN_KBYTES 0
+    scripts/config --set-val CONFIG_CLEAN_LOW_KBYTES 524288
+    scripts/config --set-val CONFIG_CLEAN_MIN_KBYTES 0
 
   # these are ck's htrimer patches
   echo "Patching with ck hrtimer patches..."
@@ -292,7 +290,7 @@ prepare() {
   # https://github.com/graysky2/kernel_gcc_patch
   # make sure to apply after olddefconfig to allow the next section
   echo "Patching to enable GCC optimization for other uarchs..."
-  patch -Np1 -i "$srcdir/kernel_compiler_patch-$_gcc_more_v/more-uarches-for-kernel-5.15+.patch"
+  patch -Np1 -i "$srcdir/kernel_compiler_patch-$_gcc_more_v/more-uarches-for-kernel-5.17+.patch"
 
   if [ -n "$_subarch" ]; then
     # user wants a subarch so apply choice defined above interactively via 'yes'
@@ -328,13 +326,13 @@ prepare() {
 
 build() {
   cd linux-${pkgver}
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM -j$(nproc) all
+  make LLVM=$_LLVM LLVM_IAS=$_LLVM all
 }
 
 _package() {
-  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
+  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules with ck's hrtimer patches"
   depends=(coreutils kmod initramfs)
-  optdepends=('crda: to set the correct wireless channels of your country'
+  optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
   provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
   #groups=('ck-generic')
@@ -357,10 +355,8 @@ _package() {
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   echo "Installing modules..."
-  #make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
-  # not needed since not building with CONFIG_DEBUG_INFO=y
-
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM INSTALL_MOD_PATH="$pkgdir/usr" modules_install
+  make LLVM=$_LLVM LLVM_IAS=$_LLVM INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+    DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
   # remove build and source links
   rm "$modulesdir"/{source,build}
@@ -381,11 +377,11 @@ _package-headers() {
   install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
   cp -t "$builddir" -a scripts
 
-  # add objtool for external module building and enabled VALIDATION_STACK option
+  # required when STACK_VALIDATION is enabled
   install -Dt "$builddir/tools/objtool" tools/objtool/objtool
 
-  # add xfs and shmem for aufs building
-  mkdir -p "$builddir"/{fs/xfs,mm}
+  # required when DEBUG_INFO_BTF_MODULES is enabled
+  #install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
 
   echo "Installing headers..."
   cp -t "$builddir" -a include
@@ -448,7 +444,6 @@ _package-headers() {
   echo "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
-
 }
 
 pkgname=("$pkgbase" "$pkgbase-headers")
