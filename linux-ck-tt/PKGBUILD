@@ -53,6 +53,9 @@ _1666_HZ_ticks=
 ### Enable KBUILD_CFLAGS -O3
 _cc_harder=y
 
+### Set performance governor as default
+_per_gov=y
+
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
 # option is 36.
@@ -103,8 +106,8 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.17.3
-pkgrel=4
+pkgver=5.17.4
+pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -128,7 +131,7 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
 "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.17/arch/0001-arch-patches.patch"
+  "${_patchsource}/5.17/arch/0001-arch-patches-v2.patch"
   "${_patchsource}/cpu-scheduler/5.17/tt/0001-tt.patch"
   "${_patchsource}/5.17/cjktty/cjktty-5.17.patch"
   "${_patchsource}/5.17/bbr2/0001-bbr2-5.17-introduce-BBRv2.patch"
@@ -141,12 +144,12 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('03fd68cd2a9c70fcb20dbec8b62f524f032924cf3ba555d78a2348b80bbe61735e6140d0d38d74bf3051ac19a67be7c62c67dfc9ef697097ed24637427e72dc7'
+b2sums=('a4ce00967f724753f5be39a3448ce6de18f46500d4dab8a4b93a4dfa4dfcb99cfcee6df3808ee355211cbb38819b2b9f7fea6e630db3e03e4a9f0bd952a32919'
         'SKIP'
-        '3d1e2c1dff1e828c655b449962fb47c49fdf77d58c65c8af41ee8c56fbb2d8fdb7d0b963c775b26ac4022c6e0f9c8d19c11bc1e0e358580396520e9261bc8eeb'
+        'b473e6d41720ed96a47e8536e7834ce8656d1aa0055201e4158eea7fdf93d3b7cb591dfa1ea628ed5dbe64e07ea8acd05a680ebb7b88bcf2e3e1e84975ad17ce'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
         '5b8bbc1cea385c8ba635722c7011529bd72b7056b4de607abf18015513426941bac05467072d61529af332b98cae9de19f763b741bff50aa76d5f031339b779e'
-        'd4ca16415490b4498863342f47050805c502a876d1412d2f9694e10879fcf2ff6ea903fe1f392dc4120e8d50a669b877ccc97ca6606ef895c1e6a7e48804b90a'
+        '80ec3c8acc13151e85e26084d9c156b5c693b8969001231f4d51ec8171a636286cffba6a1836f67298924b7dbd36e6216910447eba7dc3819a15cda33ae33bca'
         'd88a1ca68a97c21d8cf5c5bd3ed67718b286f7f80cf9ee927c4a25dbceaef8cde7686c294421cbce039cb44397327d04cc2114d751b2ac8c9fec892790524490'
         'e977e75db39b444b5d23a67e96eacbb0d065798e5ed86dfe0013b15975ee35e19cedd213e0b3c306ef924b6e5d0d3cae4e650cb9e16a127b09888ffd515d406a'
         '762ae80c5542c9773ff646dfb90b9be70469c37378f52a5e3d0c7d27d486fa92ce40750bfb7fb9c0d5bfb13686c9605127a5d10132f5606c066baf22b87f6ca8'
@@ -265,6 +268,20 @@ prepare() {
 		scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
 		scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
         fi
+        
+
+    ### Set performance governor
+	if [ -n "$_per_gov" ]; then
+		echo "Setting performance governor..."
+		scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+		scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+		echo "Disabling uneeded governors..."
+		scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+		scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+		scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+		scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+        fi
+
 
 # BBR2
   scripts/config --module CONFIG_TCP_CONG_CUBIC
