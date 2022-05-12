@@ -81,7 +81,7 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.17.5
+pkgver=5.17.6
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -106,22 +106,22 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
 "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.17/arch/0001-arch-patches-v4.patch"
+  "${_patchsource}/5.17/arch/0001-arch-patches-v5.patch"
   "${_patchsource}/cpu-scheduler/5.17/tt/0001-tt.patch"
   "${_patchsource}/5.17/cjktty/cjktty-5.17.patch"
   "${_patchsource}/5.17/bbr2/0001-bbr2-5.17-introduce-BBRv2.patch"
   "${_patchsource}/5.17/clear/0001-clearlinux-patches.patch"
   "${_patchsource}/5.17/le9/le9ec-5.17.patch"
   "${_patchsource}/5.17/O3/0002-init-Kconfig-enable-O3-for-all-arches.patch"
-  "${_patchsource}/5.17/bfq-lucjan/5.17-bfq-lucjan-r2K220416v1.patch"
+  "${_patchsource}/5.17/bfq-lucjan/5.17-bfq-lucjan-r2K220510v1.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('253dff70d1f41a8d7483d98dfc374ef11367e7a07db0584787742b5a929458c3a52c81373622aa34f0421af3e4e270ba7f187e0421b3b124db43248f5ac04a36'
+b2sums=('81635e2fbac3706738dd7c57f24316a82d36dc1d43ea5c3c2d69137e613269bff3db89280f0aa91837941bd30dfb6a37f622eac1bd7ccbdac1e27a2baf88f9ac'
         'SKIP'
-        'b750ab1d5482cb9ce3adcea6eb22c6f53919d741ebad081bbd5561b94738d02c9982d13974f4d08ffc1f207157846fb8811fc3b33ca796d9025f8e11c4dcab7a'
+        'a1a93cf57d199419c94e30cee3d0a7e18168166a72d278db32da8a19eb00ec9373888146643eb5c874daa74789c03f1272955a6a0b2dcc18e8f2672eb360e121'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
         '5b8bbc1cea385c8ba635722c7011529bd72b7056b4de607abf18015513426941bac05467072d61529af332b98cae9de19f763b741bff50aa76d5f031339b779e'
         'ba4b859e699ed7d4dc957464c1d216b30695b757727f6ec4d4bef00594faffbe3e3571c4fb8dfc18dcb29b17230f9a8425eed0b94b99cb66d9926e8b47ead1bf'
@@ -131,7 +131,7 @@ b2sums=('253dff70d1f41a8d7483d98dfc374ef11367e7a07db0584787742b5a929458c3a52c813
         '00d1bec01749c29d78bdeb3d8a9bf3688e1c78b4d911820f6423205a2a9350866763c51a1d84d59d6e384563906f5186eb3e13e24460943cb6125e884a19bdfc'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
         'aa16a394a1d4180f80b5bcdd0ee8604630f00b6519a2fe900fc09207c38253eb6802e27a7d72e207c099f3521c90ec95667190413e21e3e1f97f5ca30e9236bb'
-        '3aa1fc76105811484d0fc14e5db9fa7af3a6ed5ccb61a0292632703748dae4c08b0c3e736e583098c63b31d5fdd7510257d658c457777c115847aef74f6036cb')
+        '39d80a821f9862e07455c2ee7e44f100dce127c2119f0a26666753a0557d32ba07865096b12d838ebcee730d6f85c67b4ccefbbfcba1f27493ab3a17118f4f09')
 
 prepare() {
   cd linux-${pkgver}
