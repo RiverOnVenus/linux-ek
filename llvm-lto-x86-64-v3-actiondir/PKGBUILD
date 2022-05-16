@@ -81,7 +81,7 @@ _subarch=38
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.17.7
+pkgver=5.17.8
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -113,13 +113,13 @@ source=(
   "${_patchsource}/5.17/clear/0001-clearlinux-patches.patch"
   "${_patchsource}/5.17/le9/le9ec-5.17.patch"
   "${_patchsource}/5.17/O3/0002-init-Kconfig-enable-O3-for-all-arches.patch"
-  "${_patchsource}/5.17/bfq-lucjan/5.17-bfq-lucjan-r2K220510v1.patch"
+  "${_patchsource}/5.17/bfq-lucjan/5.17-bfq-lucjan-r2K220513v1.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('1c1b1f59404becef201c28d6677a2a52a828a51903d0fe5b38a931fa25694d766eeb222b02f674d95ea8c67c29e0f3420b88f94bdccfc2f9bd575c2605e8f229'
+b2sums=('caa76ccfba188bd868e0a1820802df10d369ade805e9bd0e4ec9efc3bf489070afe8fba469ed8480805feccad4ad38232a6f0ad64ef4a8f56582c4d1158382b7'
         'SKIP'
         'a1a93cf57d199419c94e30cee3d0a7e18168166a72d278db32da8a19eb00ec9373888146643eb5c874daa74789c03f1272955a6a0b2dcc18e8f2672eb360e121'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
@@ -131,7 +131,7 @@ b2sums=('1c1b1f59404becef201c28d6677a2a52a828a51903d0fe5b38a931fa25694d766eeb222
         '00d1bec01749c29d78bdeb3d8a9bf3688e1c78b4d911820f6423205a2a9350866763c51a1d84d59d6e384563906f5186eb3e13e24460943cb6125e884a19bdfc'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
         'aa16a394a1d4180f80b5bcdd0ee8604630f00b6519a2fe900fc09207c38253eb6802e27a7d72e207c099f3521c90ec95667190413e21e3e1f97f5ca30e9236bb'
-        '39d80a821f9862e07455c2ee7e44f100dce127c2119f0a26666753a0557d32ba07865096b12d838ebcee730d6f85c67b4ccefbbfcba1f27493ab3a17118f4f09')
+        '70ddd65e53ae08f0ffd4b473556a801840448bcfb45ec49aebb911e184eb25909a379d9f74c614ad61148ed39e54c037bd64798e400a19426d752d12ddac23e7')
 
 prepare() {
   cd linux-${pkgver}
