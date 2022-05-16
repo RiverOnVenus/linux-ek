@@ -1,6 +1,6 @@
 # Linux-ck-tt
 
-The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckolivas)' hrtimer patches and Task Type CPU scheduler  by [Hamad Al Marri](https://github.com/hamadmarri) and with some other patches. Built on the [Linux-ck](https://aur.archlinux.org/packages/linux-ck/) maintained by [graysky](https://github.com/graysky2).
+The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckolivas)' hrtimer patches and Task Type CPU scheduler  by [Hamad Marri](https://github.com/hamadmarri) and with some other patches. Built on the [Linux-ck](https://aur.archlinux.org/packages/linux-ck/) maintained by [graysky](https://github.com/graysky2).
 
 - [Con Kolivas' hrtimer patches](https://github.com/ckolivas/linux/tree/5.12-ck) and the recommended 1000 Hz tick rate. 
 - [TT-CPU-Scheduler](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based on their behaviours and control the schedulling based on their types.
@@ -97,9 +97,16 @@ net.core.default_qdisc = cake
 # may improve system responsiveness
 vm.vfs_cache_pressure = 50
 
+# VM
+vm.vfs_cache_pressure = 50
+vm.dirty_background_ratio = 25
+vm.dirty_ratio = 35
+vm.swappiness = 20
+
 # For Solid State Drives
-vm.swappiness = 100
+# vm.swappiness = 100
 # See https://chrisdown.name/2018/01/02/in-defence-of-swap.html
+
 ```
 
 # Changing I/O scheduler if you want
