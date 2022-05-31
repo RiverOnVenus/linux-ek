@@ -2,6 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: graysky <graysky AT archlinux DOT us>
 # Contributor: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor:  Peter Jung ptr1337 <admin@ptr1337.dev>
 
 ### BUILD OPTIONS
 # Set the next two variables to ANYTHING that is not null to enable them
@@ -30,6 +31,9 @@ _cc_harder=y
 
 ### Set performance governor as default
 _per_gov=y
+
+# disable debug to lower the size of the kernel
+_disable_debug=y
 
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
@@ -82,7 +86,7 @@ _subarch=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=5.18.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -165,7 +169,7 @@ prepare() {
   # and can easily overwhelm a system with 32 GB of memory using a tmpfs build
   # partition ... this was introduced by FS#66260, see:
   # https://git.archlinux.org/svntogit/packages.git/commit/trunk?h=packages/linux&id=663b08666b269eeeeaafbafaee07fd03389ac8d7
-  scripts/config --disable CONFIG_DEBUG_INFO
+#   scripts/config --disable CONFIG_DEBUG_INFO
   scripts/config --disable CONFIG_CGROUP_BPF
   scripts/config --disable CONFIG_BPF_LSM
   scripts/config --disable CONFIG_BPF_PRELOAD
@@ -176,13 +180,29 @@ prepare() {
   scripts/config --enable CONFIG_PSI_DEFAULT_DISABLED
 
   # https://bbs.archlinux.org/viewtopic.php?pid=1863567#p1863567
-  scripts/config --disable CONFIG_LATENCYTOP
-  scripts/config --disable CONFIG_SCHED_DEBUG
+#   scripts/config --disable CONFIG_LATENCYTOP
+#   scripts/config --disable CONFIG_SCHED_DEBUG
 
   # FS#66613
   # https://bugzilla.kernel.org/show_bug.cgi?id=207173#c6
   scripts/config --disable CONFIG_KVM_WERROR
   
+    if [ -n "$_disable_debug" ]; then
+    scripts/config --disable DEBUG_INFO \
+                       --disable DEBUG_INFO_BTF \
+                       --disable DEBUG_INFO_DWARF4 \
+                       --disable DEBUG_INFO_DWARF5 \
+                       --disable PAHOLE_HAS_SPLIT_BTF \
+                       --disable DEBUG_INFO_BTF_MODULES \
+                       --disable SLUB_DEBUG \
+                       --disable PM_DEBUG \
+                       --disable PM_ADVANCED_DEBUG \
+                       --disable PM_SLEEP_DEBUG \
+                       --disable ACPI_DEBUG \
+                       --disable SCHED_DEBUG \
+                       --disable LATENCYTOP \
+                       --disable DEBUG_PREEMPT
+    fi
 
 	if [ -n "$_1000_HZ_ticks" ]; then
 		echo "Setting tick rate to 1000Hz..."

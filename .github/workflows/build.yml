@@ -19,7 +19,7 @@ jobs:
       uses: ncipollo/release-action@v1.8.6
       with:
           allowUpdates: true
-          tag: "5.18.1-1-gcc-x86-64"
+          tag: "5.18.1-2-gcc-x86-64"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +39,7 @@ jobs:
       uses: ncipollo/release-action@v1.9.0
       with:
           allowUpdates: true
-          tag: "5.18.1-1-llvm-lto-x86-64"
+          tag: "5.18.1-2-llvm-lto-x86-64"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -59,7 +59,7 @@ jobs:
       uses: ncipollo/release-action@v1.8.6
       with:
           allowUpdates: true
-          tag: "5.18.1-1-gcc-x86-64-v3"
+          tag: "5.18.1-2-gcc-x86-64-v3"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -79,7 +79,7 @@ jobs:
       uses: ncipollo/release-action@v1.9.0
       with:
           allowUpdates: true
-          tag: "5.18.1-1-llvm-lto-x86-64-v3"
+          tag: "5.18.1-2-llvm-lto-x86-64-v3"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
