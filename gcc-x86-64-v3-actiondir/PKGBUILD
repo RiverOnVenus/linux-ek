@@ -117,7 +117,7 @@ source=(
   "${_patchsource}/5.18/0001-clearlinux.patch"
   "${_patchsource}/5.18/le9ec-5.18.patch"
   "${_patchsource}/5.18/0013-XANMOD-init-Kconfig-Enable-O3-KBUILD_CFLAGS-optimiza.patch"
-  "${_patchsource}/5.18/5.18-bfq-lucjan-r2K220601v2.patch"
+  "${_patchsource}/5.18/5.18-bfq-lucjan-r2K220606v2.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -135,7 +135,7 @@ b2sums=('141cc47585905cab087910ece010c69b9f5985484df58f08da99558e51cd3707ea8ea6b
         '7d44a5feaae8a1239543e43fee8db075894aa38f7d2be373a233111e7a039bdeada341b1b14a2927cc6bbfd2b16128714853dc6e37aa5613acc322d81f20d1c2'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
         '7136e3534a33f1b547ce221c65302bd63fa25b953fe4609501d54e1d656c676c1e918f434b7100aa49c298cb9d8be2dc0d47b89790bca37b5449bc336a0f4b29'
-        '5bc36d5a90abbfa5abb3a4bfcef4b17b494e415d802aa2b05684a0702e96c49a85f64250b7c61441581d0aba52dd873bf18c4850f1f1c90efff997db62507db5')
+        '48afe2c6cf90faea1a8e2385f8572172cc146db4792e27f4c6ad805d3600a44132fa9b90f05cbd0e704ae22ca2331d8579a5d31557c0b5b6e1709f87a7ab9a10')
 
 prepare() {
   cd linux-${pkgver}
