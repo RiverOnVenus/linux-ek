@@ -85,7 +85,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.18.3
+pkgver=5.18.5
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -117,25 +117,25 @@ source=(
   "${_patchsource}/5.18/0001-clearlinux.patch"
   "${_patchsource}/5.18/le9ec-5.18.patch"
   "${_patchsource}/5.18/0013-XANMOD-init-Kconfig-Enable-O3-KBUILD_CFLAGS-optimiza.patch"
-  "${_patchsource}/5.18/5.18-bfq-lucjan-r2K220606v2.patch"
+  "${_patchsource}/5.18/5.18-bfq-lucjan-r2K220617v1.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('141cc47585905cab087910ece010c69b9f5985484df58f08da99558e51cd3707ea8ea6b12a2f6eb75a208a178724b66eb61166611ec933333b15965bc4382033'
+b2sums=('d2670e53d72fc5f0cf637394452a701c7ab41473be526d29deba7b60789dc56e1c369f3ae05a76f67890822588a36d0b497f267b4b75c33d0a98ad5131c697c9'
         'SKIP'
-        'c7d8a6dbf653bb294a81f6522d692fa783806fce1bd9185f1fb52c694dabd5f32972e6a7a5d03a1cfd35825e90963fdac5bdaf2ed75daa8b85ed00a1b07d2d9c'
+        'eab78c88e45d9c8c365b12369f0e787fd70554c4e7efb8ce5d3360eaf5ef6036bed484b673ecc1ad58c7d120c261b0bcc71f443dcbd96665d06ae545f119d608'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
         '5b8bbc1cea385c8ba635722c7011529bd72b7056b4de607abf18015513426941bac05467072d61529af332b98cae9de19f763b741bff50aa76d5f031339b779e'
-        'b9c32c9ebb17d0db67220c1442b39f35e29688482713b4f4ec044adf7335792f49a688f205783fa859cb74ee0217017d89fafe58b0c2ec9ff3dadb09bc963160'
+        '618acbbb0ee34080f32bf69d4953e338880a47363a1c59743fd5fc97dde8b2461e619d3049b07b545c2009b61526a67bdb48aad6487192d2b99f74369d0a9fd6'
         '7259c51dd97165f2431ad0e5d6156f6a0d44d5cac69a6f8689b3ce9cf2921db1e7c46fb8b738e1fb207f992f5ab2bac921e061db8e38c8152e3e1a92975c0be1'
         'e3858432a208676330e383de0124b6c5dee4b4df62635f369223a8d5c08c3c1ba3d1edf74d3ae94d36e88c8cb40770e0f1a871e2fd60b5cd2e771d7f37befa8d'
         '44e32023e40c90ef724892b37fab9fcd3ab7388967716eb2eca0b71f8351229d035f2dde27466419463dbf0153ee2c9ce6db207f0785130241d7a0e7862a01cd'
         '7d44a5feaae8a1239543e43fee8db075894aa38f7d2be373a233111e7a039bdeada341b1b14a2927cc6bbfd2b16128714853dc6e37aa5613acc322d81f20d1c2'
         '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
         '7136e3534a33f1b547ce221c65302bd63fa25b953fe4609501d54e1d656c676c1e918f434b7100aa49c298cb9d8be2dc0d47b89790bca37b5449bc336a0f4b29'
-        '48afe2c6cf90faea1a8e2385f8572172cc146db4792e27f4c6ad805d3600a44132fa9b90f05cbd0e704ae22ca2331d8579a5d31557c0b5b6e1709f87a7ab9a10')
+        '97c83ac75d8be1f2bc32d973846e0011a2ecc319f8f15e7d4dce7661ce553347d8a422aa5b062600d9acf3de7a6fdd989c97ceafe7769335ba3b88aba401cf1b')
 
 prepare() {
   cd linux-${pkgver}
@@ -231,7 +231,10 @@ prepare() {
 		scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
         fi
 
-
+    #TT Scheduler
+    scripts/config --enable TT_SCHED
+    scripts/config --enable TT_ACCOUNTING_STATS
+  
 # BBR2
   scripts/config --module CONFIG_TCP_CONG_CUBIC
   scripts/config --disable CONFIG_DEFAULT_CUBIC
