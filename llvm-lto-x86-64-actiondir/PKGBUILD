@@ -85,7 +85,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.18.12
+pkgver=5.18.14
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -123,7 +123,7 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('000df730f6651173292a43745edd615b501d959f4d963a11df600a6bcb378db0750023c9025c8d63091658d7540693cc0e486f3bae3b49610135ca34f0b8edd4'
+b2sums=('faeadb397c61f3adc70fb03d5ba10c203764d8a43b70cb70838d17780922bf05cd8389c19ba8d323f322d81169d11cf744d86103011c4a17606a2081e18a906f'
         'SKIP'
         'aeffb500a9cf0f1265fc62fa9260bdddac8ba47bf01e3b2732d961ea7d58ae4886563bc7076fe920d4fca3ad19588bfe8f9368e77fdc61336c894488bab41638'
         '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
