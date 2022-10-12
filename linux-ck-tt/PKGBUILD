@@ -1,11 +1,11 @@
-# Maintainer: RiverOnVenus <RiverOnVenus@gmail.com>
+# Maintainer: RiverOnVenus <RiverOnVenus AT gmail DOT com>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: graysky <graysky AT archlinux DOT us>
-# Contributor: Piotr Gorski <lucjan.lucjanov@gmail.com>
-# Contributor:  Peter Jung ptr1337 <admin@ptr1337.dev>
+# Contributor: Peter Jung ptr1337 <admin@ptr1337.dev> && Piotr Gorski <piotrgorski@cachyos.org>
 
 ### BUILD OPTIONS
-# Set the next two variables to ANYTHING that is not null to enable them
+# Any/all of the next three variables may be set to ANYTHING
+# that is not null to enable their respective build options
 
 # Tweak kernel options prior to a build via nconfig
 _makenconfig=
@@ -18,16 +18,8 @@ _makenconfig=
 # More at this wiki page ---> https://wiki.archlinux.org/index.php/Modprobed-db
 _localmodcfg=
 
-## Choose between GCC and CLANG config (default is GCC)
-if [ -z ${_compiler+x} ]; then
-  _compiler=gcc
-fi
-
-# ck recommends 1000 Hz tick and the hrtimer patches in lieu of ck1
-_1000_HZ_ticks=y
-
-### Enable KBUILD_CFLAGS -O3
-_cc_harder=y
+# Compile using clang rather than gcc
+_clangbuild=
 
 ### Set performance governor as default
 _per_gov=y
@@ -40,7 +32,6 @@ _disable_debug=y
 # option is 36.
 _subarch=
 
-#
 #  1. AMD Opteron/Athlon64/Hammer/K8 (MK8)
 #  2. AMD Opteron/Athlon64/Hammer/K8 with SSE3 (MK8SSE3) (NEW)
 #  3. AMD 61xx/7x50/PhenomX3/X4/II/K10 (MK10) (NEW)
@@ -85,7 +76,7 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=5.18.16
+pkgver=6.0
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -93,49 +84,39 @@ license=(GPL2)
 makedepends=(
   bc libelf        cpio perl tar xz
 )
-if [ "${_compiler}" = "clang" ]; then
-  makedepends+=(clang llvm lld python)
-fi
+[[ -n "$_clangbuild" ]] && makedepends+=(clang llvm lld python)
 options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-5.17.y
-_commit=5d3a0424bdbfdf2fc4cca389bf0f1ee4876e782d
+_ckhrtimer=linux-6.0.y
+_commit=5be918e798e2c2cc94fa7dd0f6f031921a4f7598
 
 _gcc_more_v=20220315
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 source=(
-  "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar".{xz,sign}
+  "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
-"ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
-  "${_patchsource}/5.18/0001-arch.patch"
-  "${_patchsource}/cpu-scheduler/5.18/0001-tt-5.18.patch"
-  "${_patchsource}/5.18/cjktty-5.18.patch"
-  "${_patchsource}/5.18/0001-bbr2.patch"
-  "${_patchsource}/5.18/0001-clearlinux.patch"
-  "${_patchsource}/5.18/le9ec-5.18.patch"
-  "${_patchsource}/5.18/0013-XANMOD-init-Kconfig-Enable-O3-KBUILD_CFLAGS-optimiza.patch"
-  "${_patchsource}/5.18/5.18-bfq-lucjan-r2K220624v1.patch"
+  "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
+  0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
+  0002-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch
+  0003-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
+  "${_patchsource}/cpu-scheduler/6.0/tt-6.0.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-b2sums=('60e9cc780af70242eaf3b41374acd8c11bb388a9aa17341aa98674e31a72cbd1c6ecf80158476fd762ed8955c6ded9a3ce8cd782ce0c956ddc3031c7487da686'
-        'SKIP'
-        'aeffb500a9cf0f1265fc62fa9260bdddac8ba47bf01e3b2732d961ea7d58ae4886563bc7076fe920d4fca3ad19588bfe8f9368e77fdc61336c894488bab41638'
-        '20674a8fcc0a85726e06460a7dbccfe731c46bf377cc3bf511b7591175e7df892f271bc1909e77d9a02913c753d241493502c5ab15d9f78e95f31aa4399c2c27'
-        '5b8bbc1cea385c8ba635722c7011529bd72b7056b4de607abf18015513426941bac05467072d61529af332b98cae9de19f763b741bff50aa76d5f031339b779e'
-        '618acbbb0ee34080f32bf69d4953e338880a47363a1c59743fd5fc97dde8b2461e619d3049b07b545c2009b61526a67bdb48aad6487192d2b99f74369d0a9fd6'
-        '2c3652c0eb33293502de3c9dce24fd9109f9360bd74ccd453ca9d7ee2122fc2f68a1bcf09b2952e68512b8d202e7ff691a0506b2656557ce9738c04c5c7b8dd3'
-        'e3858432a208676330e383de0124b6c5dee4b4df62635f369223a8d5c08c3c1ba3d1edf74d3ae94d36e88c8cb40770e0f1a871e2fd60b5cd2e771d7f37befa8d'
-        '44e32023e40c90ef724892b37fab9fcd3ab7388967716eb2eca0b71f8351229d035f2dde27466419463dbf0153ee2c9ce6db207f0785130241d7a0e7862a01cd'
-        '7d44a5feaae8a1239543e43fee8db075894aa38f7d2be373a233111e7a039bdeada341b1b14a2927cc6bbfd2b16128714853dc6e37aa5613acc322d81f20d1c2'
-        '80ca1f276a18d7f815c51aee33608ebfd036d200634a86ff1abb483daacbba168e06fff04b62a4c9fc87025679a158ebd6b4bc161271c4e2b44051b92fc2318f'
-        '7136e3534a33f1b547ce221c65302bd63fa25b953fe4609501d54e1d656c676c1e918f434b7100aa49c298cb9d8be2dc0d47b89790bca37b5449bc336a0f4b29'
-        'fac3ba60a04c78b6aa228b3b738593af3b99d6cf4bb9ac1a8b031f54818a320be043673c44dc66325f7e55a793f70f5812cc32085e16b17c07c0387589a22c41')
+sha256sums=('5c2443a5538de52688efb55c27ab0539c1f5eb58c0cfd16a2b9fbb08fd81788e'
+            'SKIP'
+            '85f7327e262056043514a24eb6c8d46e3ac6a10a6caff09d664dec8827829144'
+            '5a29d172d442a3f31a402d7d306aaa292b0b5ea29139d05080a55e2425f48c5c'
+            '85b197dbe033264925b4803b3c8907ed73b967061c098e269eacd5575d6da34b'
+            'd7c84eb6b873dcc953ec27816ce8600b75abc97c74db2a051f32a136ca97ddd2'
+            'f70be1121e87ac7fd2f7ea02b1d499a1b8dde45fb30322af2b16714bac339571'
+            '3b2d3a8c04ecad332ad1ac4de501d7550b9fd8ae9b451e5c6c47e7544d2b7d67'
+            'd38abe6a9fe5224d7a6e24c28cbe01d39c737ce0c41be5f4728f661f1ab65eef')
 
 prepare() {
   cd linux-${pkgver}
@@ -157,19 +138,6 @@ prepare() {
   echo "Setting config..."
   cp ../config .config
 
-    # clang Full LTO
-    if [ "${_compiler}" = "clang" ]; then
-     	echo "Enable FULL LTO"
-    scripts/config --disable CONFIG_LTO_NONE
-    scripts/config --enable CONFIG_LTO_CLANG_FULL
-    _LLVM=1
-  fi
-
-  # disable CONFIG_DEBUG_INFO=y at build time otherwise memory usage blows up
-  # and can easily overwhelm a system with 32 GB of memory using a tmpfs build
-  # partition ... this was introduced by FS#66260, see:
-  # https://git.archlinux.org/svntogit/packages.git/commit/trunk?h=packages/linux&id=663b08666b269eeeeaafbafaee07fd03389ac8d7
-#   scripts/config --disable CONFIG_DEBUG_INFO
   scripts/config --disable CONFIG_CGROUP_BPF
   scripts/config --disable CONFIG_BPF_LSM
   scripts/config --disable CONFIG_BPF_PRELOAD
@@ -179,80 +147,54 @@ prepare() {
   # https://bbs.archlinux.org/viewtopic.php?pid=1824594#p1824594
   scripts/config --enable CONFIG_PSI_DEFAULT_DISABLED
 
-  # https://bbs.archlinux.org/viewtopic.php?pid=1863567#p1863567
-#   scripts/config --disable CONFIG_LATENCYTOP
-#   scripts/config --disable CONFIG_SCHED_DEBUG
-
   # FS#66613
   # https://bugzilla.kernel.org/show_bug.cgi?id=207173#c6
   scripts/config --disable CONFIG_KVM_WERROR
-  
-    if [ -n "$_disable_debug" ]; then
-    scripts/config --disable DEBUG_INFO \
-                       --disable DEBUG_INFO_BTF \
-                       --disable DEBUG_INFO_DWARF4 \
-                       --disable DEBUG_INFO_DWARF5 \
-                       --disable PAHOLE_HAS_SPLIT_BTF \
-                       --disable DEBUG_INFO_BTF_MODULES \
-                       --disable SLUB_DEBUG \
-                       --disable PM_DEBUG \
-                       --disable PM_ADVANCED_DEBUG \
-                       --disable PM_SLEEP_DEBUG \
-                       --disable ACPI_DEBUG \
-                       --disable SCHED_DEBUG \
-                       --disable LATENCYTOP \
-                       --disable DEBUG_PREEMPT
-    fi
 
-	if [ -n "$_1000_HZ_ticks" ]; then
-		echo "Setting tick rate to 1000Hz..."
-		scripts/config --disable CONFIG_HZ_300
-		scripts/config --enable CONFIG_HZ_1000
-		scripts/config --set-val CONFIG_HZ 1000
-	fi
+  # ck recommends 1000 Hz tick and the hrtimer patches in lieu of ck1
+  scripts/config --enable CONFIG_HZ_1000
 
-	    ### Enable KBUILD_CFLAGS -O3
-	if [ -n "$_cc_harder" ]; then
-		echo "Enabling KBUILD_CFLAGS -O3..."
-		scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
-		scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
-        fi
-        
+  ### Select TT Scheduler
+  echo "Selecting TT Scheduler..."
+  scripts/config --enable TT_SCHED \
+      --enable TT_ACCOUNTING_STATS
 
-    ### Set performance governor
-	if [ -n "$_per_gov" ]; then
-		echo "Setting performance governor..."
-		scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
-		scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
-		echo "Disabling uneeded governors..."
-		scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
-		scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
-		scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
-		scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
-        fi
+  ### Select performance governor
+  if [ -n "$_per_gov" ]; then
+      echo "Setting performance governor..."
+      scripts/config --disable CPU_FREQ_DEFAULT_GOV_SCHEDUTIL \
+          --enable CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+  fi
 
-    #TT Scheduler
-    scripts/config --enable TT_SCHED
-    scripts/config --enable TT_ACCOUNTING_STATS
-  
-# BBR2
-  scripts/config --module CONFIG_TCP_CONG_CUBIC
-  scripts/config --disable CONFIG_DEFAULT_CUBIC
-  scripts/config --enable CONFIG_TCP_CONG_BBR2
-  scripts/config --enable CONFIG_DEFAULT_BBR2
-  scripts/config --set-str CONFIG_DEFAULT_TCP_CONG bbr2
-  
-  #le9
-    scripts/config --set-val CONFIG_ANON_MIN_KBYTES 0
-    scripts/config --set-val CONFIG_CLEAN_LOW_KBYTES 524288
-    scripts/config --set-val CONFIG_CLEAN_MIN_KBYTES 0
-
+  ### Disable DEBUG
+  if [ -n "$_disable_debug" ]; then
+      scripts/config --disable DEBUG_INFO \
+          --disable DEBUG_INFO_BTF \
+          --disable DEBUG_INFO_DWARF4 \
+          --disable DEBUG_INFO_DWARF5 \
+          --disable PAHOLE_HAS_SPLIT_BTF \
+          --disable DEBUG_INFO_BTF_MODULES \
+          --disable SLUB_DEBUG \
+          --disable PM_DEBUG \
+          --disable PM_ADVANCED_DEBUG \
+          --disable PM_SLEEP_DEBUG \
+          --disable ACPI_DEBUG \
+          --disable SCHED_DEBUG \
+          --disable LATENCYTOP \
+          --disable DEBUG_PREEMPT
+  fi
   # these are ck's htrimer patches
   echo "Patching with ck hrtimer patches..."
 
   for i in ../linux-patches-"$_commit"/"$_ckhrtimer"/ck-hrtimer/0*.patch; do
     patch -Np1 -i $i
   done
+
+  if [[ -n "$_clangbuild" ]]; then
+    scripts/config -e LTO_CLANG_FULL
+    export _LLVM=1
+    export _LLVM_IAS=$_LLVM
+  fi
 
   # non-interactively apply ck1 default options
   # this isn't redundant if we want a clean selection of subarch below
@@ -277,14 +219,14 @@ prepare() {
     if [ -n "$_localmodcfg" ]; then
       if [ -f $HOME/.config/modprobed.db ]; then
         echo "Running Steven Rostedt's make localmodconfig now"
-        make LLVM=$_LLVM LLVM_IAS=$_LLVM LSMOD=$HOME/.config/modprobed.db localmodconfig
+        make LLVM=$_LLVM LLVM_IAS=$_LLVM LSMOD="$HOME/.config/modprobed.db" localmodconfig
       else
         echo "No modprobed.db data found"
         exit
       fi
     fi
 
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM -s kernelrelease > version
+  make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
 
   [[ -z "$_makenconfig" ]] || make LLVM=$_LLVM LLVM_IAS=$_LLVM nconfig
@@ -298,15 +240,15 @@ prepare() {
 
 build() {
   cd linux-${pkgver}
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM -j$(nproc) all
+  make LLVM=$_LLVM LLVM_IAS=$_LLVM all
 }
 
 _package() {
-  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
+  pkgdesc="The Linux kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
   depends=(coreutils kmod initramfs)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
-  provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
+  provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE KSMBD-MODULE)
   replaces=(virtualbox-guest-modules-arch wireguard-arch)
   #groups=('ck-generic')
 
