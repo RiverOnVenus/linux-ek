@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.1.0
     - name: Makepkg Build and Check
       id: makepkg
       uses: RiverOnVenus/pkgbuild-action@new
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v3.1.0
     - name: Makepkg Build and Check
       id: makepkg
       uses: RiverOnVenus/pkgbuild-action@new
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.1.0
     - name: Makepkg Build and Check
       id: makepkg
       uses: RiverOnVenus/pkgbuild-action@new
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v3.1.0
     - name: Makepkg Build and Check
       id: makepkg
       uses: RiverOnVenus/pkgbuild-action@new
