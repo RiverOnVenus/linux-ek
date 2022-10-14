@@ -1,15 +1,14 @@
 # Linux-ck-tt
 
-The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckolivas)' hrtimer patches and Task Type CPU scheduler  by [Hamad Marri](https://github.com/hamadmarri) and with some other patches. Built on the [Linux-ck](https://aur.archlinux.org/packages/linux-ck/) maintained by [graysky](https://github.com/graysky2).
+[![PKGBUILD CI](https://github.com/RiverOnVenus/linux-ck-tt/actions/workflows/build.yml/badge.svg)](https://github.com/RiverOnVenus/linux-ck-tt/actions/workflows/build.yml)
+
+The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckolivas)' hrtimer patches and Task Type CPU scheduler  by [Hamad Al Marri](https://github.com/hamadmarri) and with some other patches. Built on the [Linux-ck](https://aur.archlinux.org/packages/linux-ck/) maintained by [graysky](https://github.com/graysky2).
 
 - [Con Kolivas' hrtimer patches](https://github.com/ckolivas/linux/tree/5.12-ck) and the recommended 1000 Hz tick rate. 
 - [TT-CPU-Scheduler](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based on their behaviours and control the schedulling based on their types. \## fixed for 5.18 by [Parvinder Singh](https://github.com/psndna88).
 - [kernel_compiler_patch](https://github.com/graysky2/kernel_compiler_patch) enables compiler optimizations for additional CPUs.
 - [CJKTTY](https://github.com/zhmars/cjktty-patches) supports displaying CJK Unified Ideographs on Linux tty.
 - [BBR v2](https://github.com/google/bbr) is a congestion control algorithm proposed by Google.
-- [clear](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
-- [bfq-lucjan](https://github.com/sirlucjan/kernel-patches/tree/master/5.16/bfq-lucjan) specific patches authored by Paolo Valente and Piotr Gorski.
-- [le9](https://github.com/hakavlad/le9-patch) Protect the working set under memory pressure to prevent thrashing, avoid high latency and prevent livelock in near-OOM conditions.
 
 # Build and install
 
@@ -58,7 +57,18 @@ This start-up message should appear in the kernel ring buffer when TT in enabled
 # dmesg | grep -i 'TT CPU'
 ```
 
-You can see: `TT CPU scheduler v5.14 by Hamad Al Marri.`
+You can see: `TT CPU scheduler v6.0 by Hamad Al Marri.`
+
+# TT balancer option
+
+`kernel.sched_tt_balancer_opt` can be set to 4 values:
+
+- 0: Normal TT balancer
+- 1: Candidate Balancer (which is an addition to normal TT balancer -  good for reponsiveness (perfomance gets affected when #CPUs > 4))
+- 2: CFS balancer (default - good for perfomance/throughput)
+- 3: Power save balancer (tries its best to avoid running tasks on idle cpus - saves power)
+
+You can change the balancer option at run time. [See more](https://github.com/hamadmarri/TT-CPU-Scheduler/blob/master/README.md)
 
 # Sysctl configuration improving performance
 
@@ -110,8 +120,6 @@ vm.swappiness = 20
 ```
 
 # Changing I/O scheduler if you want
-
-**bfq is enabled by default.**([bfq-lucjan](https://github.com/sirlucjan/kernel-patches/tree/master/5.16/bfq-lucjan))
 
 ```
 # cat /sys/block/sda/queue/scheduler
