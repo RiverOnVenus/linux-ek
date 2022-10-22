@@ -14,7 +14,7 @@ jobs:
       with:
           pkgdir: "gcc-x86-64-actiondir"
           namcapDisable: 1
-          makepkgArgs: " --noconfirm -s"
+          makepkgArgs: "--skippgpcheck --noconfirm -s"
     - name: Release
       uses: ncipollo/release-action@v1.11.1
       with:
