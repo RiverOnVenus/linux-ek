@@ -107,10 +107,9 @@ source=(
   0003-soundwire-intel-Initialize-clock-stop-timeout.patch
   0004-drm-sched-add-DRM_SCHED_FENCE_DONT_PIPELINE-flag.patch
   0005-drm-amdgpu-use-DRM_SCHED_FENCE_DONT_PIPELINE-for-VM-.patch
-  0006-drm-i915-Fix-unhandled-deadlock-in-grab_vma.patch
-  "0007-tt.patch::${_patchsource}/cpu-scheduler/6.0/tt-6.0.patch"
-  "0008-bbr2.patch::${_patchsource}/6.0/0001-bbr2.patch"
-  "0009-cjktty.patch::${_patchsource}/6.0/0001-cjktty-6.0.patch"
+  "0006-tt.patch::${_patchsource}/cpu-scheduler/6.0/tt-6.0.patch"
+  "0007-bbr2.patch::${_patchsource}/6.0/0001-bbr2.patch"
+  "0008-cjktty.patch::${_patchsource}/6.0/0001-cjktty-6.0.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -126,7 +125,6 @@ sha256sums=('39e57fcd84cd70bfa3e1a4185d3aa0ed7f1432f24c6548d16326b0c3c9541dd0'
             '3f5a6fc58ae54bcfd95e147a2156c501eecfd9fcf2a9ceed056df87d59954af8'
             '9aeaddde2dd4bca54ee00ee11a53677a3afe82c61543c416708edaa0f27097c9'
             '5d22887375ab7a8615b7ad84445d5c62350be23873396222c48f6e39dd64161c'
-            '966f24db411f100a2c7028c7e26814fa34a742f55a236df5df5357174404750a'
             'd38abe6a9fe5224d7a6e24c28cbe01d39c737ce0c41be5f4728f661f1ab65eef'
             '83dc41ef5db75e85fe2a5d0e8a22242c3981f34e9ab3b926c1365f14b1a7944e'
             '8db3be0f5ea5fcbc3c3ed219145ddeeeb787d9681ab7d935a38917482011b43f')
