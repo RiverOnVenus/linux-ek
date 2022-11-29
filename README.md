@@ -76,8 +76,13 @@ You can change the balancer option at run time. [See more](https://github.com/ha
 # See https://wiki.archlinux.org/title/Sysctl for more information.
 
 # Networking
+# Increasing this value for high speed cards may help prevent losing packets:
 net.core.netdev_max_backlog = 16384
+
+# The upper limit on how many connections the kernel will accept (default 128):
 net.core.somaxconn = 8192
+
+# The default the Linux network stack is not configured for high speed large file 	  transfer across WAN links (i.e. handle more network packets) and setting the correct values may save memory resources:
 net.core.rmem_default = 1048576
 net.core.rmem_max = 16777216
 net.core.wmem_default = 1048576
@@ -85,37 +90,56 @@ net.core.wmem_max = 16777216
 net.core.optmem_max = 65536
 net.ipv4.tcp_rmem = 4096 1048576 2097152
 net.ipv4.tcp_wmem = 4096 65536 16777216
+
+# It is also possible increase the default 4096 UDP limits:
 net.ipv4.udp_rmem_min = 8192
 net.ipv4.udp_wmem_min = 8192
+
+# Enable TCP Fast Open
 net.ipv4.tcp_fastopen = 3
+
+# Tweak the pending connection handling
 net.ipv4.tcp_max_syn_backlog = 8192
 net.ipv4.tcp_max_tw_buckets = 2000000
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_fin_timeout = 10
+net.ipv4.tcp_slow_start_after_idle = 0
+
+# Enable MTU probing
 net.ipv4.tcp_mtu_probing = 1
-net.ipv4.tcp_syncookies = 1
-net.ipv4.tcp_rfc1337 = 1
+
+# Change TCP keepalive parameters
 net.ipv4.tcp_keepalive_time = 120
 net.ipv4.tcp_keepalive_intvl = 10
 net.ipv4.tcp_keepalive_probes = 6
-net.ipv4.conf.default.log_martians = 1
-net.ipv4.conf.all.log_martians = 1
+
+# Enable CAKE
 net.core.default_qdisc = cake
+
+# Virtual memory
+# vm.dirty_background_ratio default 10
+# vm.dirty_ratio default 20
+# For 16GB RAM
+vm.dirty_background_ratio = 2
+vm.dirty_ratio = 4
+# And
+# For 8GB RAM
+# vm.dirty_background_ratio = 4
+# vm.dirty_ratio = 8
 
 # VFS cache
 # Decreasing the virtual file system (VFS) cache parameter value 
-# may improve system responsiveness
-vm.vfs_cache_pressure = 50
+# may improve system responsiveness (default 100)
+# vm.vfs_cache_pressure = 50
 
-# VM
-vm.vfs_cache_pressure = 50
-vm.dirty_background_ratio = 25
-vm.dirty_ratio = 35
-vm.swappiness = 20
-
+# Swappiness (default 60)
 # For Solid State Drives
 # vm.swappiness = 100
 # See https://chrisdown.name/2018/01/02/in-defence-of-swap.html
+# Or
+# For zram
+# vm.swappiness = 100
+
 
 ```
 
