@@ -79,7 +79,7 @@ _subarch=38
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.0.10
+pkgver=6.0.12
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -103,10 +103,10 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
-  0002-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch
-  0003-soundwire-intel-Initialize-clock-stop-timeout.patch
-  0004-drm-sched-add-DRM_SCHED_FENCE_DONT_PIPELINE-flag.patch
-  0005-drm-amdgpu-use-DRM_SCHED_FENCE_DONT_PIPELINE-for-VM-.patch
+  0002-soundwire-intel-Initialize-clock-stop-timeout.patch
+  0003-drm-sched-add-DRM_SCHED_FENCE_DONT_PIPELINE-flag.patch
+  0004-drm-amdgpu-use-DRM_SCHED_FENCE_DONT_PIPELINE-for-VM-.patch
+  0005-drm-i915-improve-the-catch-all-evict-to-handle-lock-.patch
   "0006-tt.patch::${_patchsource}/cpu-scheduler/6.0/tt-6.0.patch"
   "0007-bbr2.patch::${_patchsource}/6.0/0001-bbr2.patch"
   "0008-cjktty.patch::${_patchsource}/6.0/0001-cjktty-6.0.patch"
@@ -115,16 +115,16 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('39e57fcd84cd70bfa3e1a4185d3aa0ed7f1432f24c6548d16326b0c3c9541dd0'
+sha256sums=('89b730edf8942b49e02f9894244205886c9a214d629b35b88c4ff06ee9304f01'
             'SKIP'
-            '848ccd048f91b17f0e0192d2900c462986eeacf78bb578b2de9498c4a0526983'
+            'f66b82f4a99c99dedb128a027c7e23a70c2853984c44ecbd79d16bd76f1f5bac'
             '3a8f397b89bad95c46f42c0f80ede7536a4a45a28621e00ed486918a55f905ed'
             '85b197dbe033264925b4803b3c8907ed73b967061c098e269eacd5575d6da34b'
-            '05a9b754ff501c45833238db1f304533a3b0aec3f9281cb8381c580066a2eff5'
-            '800804877e411394cd7aa77884054e0447da51b5fb010e3f3f992bfe41e41fba'
-            '3f5a6fc58ae54bcfd95e147a2156c501eecfd9fcf2a9ceed056df87d59954af8'
-            '9aeaddde2dd4bca54ee00ee11a53677a3afe82c61543c416708edaa0f27097c9'
-            '5d22887375ab7a8615b7ad84445d5c62350be23873396222c48f6e39dd64161c'
+            '2f4d03a8bb21357f88d694b62fc3299944fa1738652dfe888ac0320d5d21f351'
+            '2fe671aab9f164a3841e75d837058f208ee781854e6c41e829ddde789bfdc4c2'
+            '671c3852d1adf7095cf82fdecf197c65df4d3003c917b56cee2fc9845cd06883'
+            '3d00e39c53c107c87925eaeade32fc7d78e916e588ab5d8e4dd84c33ae748a96'
+            '753576c6bc05bab969c5824fdb8dd8e6e1131d4c7f805dbaf5c529aafd2a1b6b'
             'd38abe6a9fe5224d7a6e24c28cbe01d39c737ce0c41be5f4728f661f1ab65eef'
             '83dc41ef5db75e85fe2a5d0e8a22242c3981f34e9ab3b926c1365f14b1a7944e'
             '8db3be0f5ea5fcbc3c3ed219145ddeeeb787d9681ab7d935a38917482011b43f')
@@ -372,7 +372,7 @@ _package-headers() {
   echo "Stripping build tools..."
   local file
   while read -rd '' file; do
-    case "$(file -Sbi "$file")" in
+    case "$(file -Sib "$file")" in
       application/x-sharedlib\;*)      # Libraries (.so)
         strip -v $STRIP_SHARED "$file" ;;
       application/x-archive\;*)        # Libraries (.a)
@@ -386,7 +386,6 @@ _package-headers() {
 
   echo "Stripping vmlinux..."
   strip -v $STRIP_STATIC "$builddir/vmlinux"
-  # not needed since not building with CONFIG_DEBUG_INFO=y
 
   echo "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
