@@ -79,13 +79,13 @@ _subarch=38
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.1
+pkgver=6.1.1
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
 makedepends=(
-  bc libelf        cpio perl tar xz
+  bc libelf pahole cpio perl tar xz
 )
 [[ -n "$_clangbuild" ]] && makedepends+=(clang llvm lld python)
 options=('!strip')
@@ -95,7 +95,7 @@ options=('!strip')
 _ckhrtimer=linux-6.1.y
 _commit=fdbdf7e0ec56cd59e11d024c473e766429271a5c
 
-_gcc_more_v=20221104
+_gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
@@ -104,22 +104,24 @@ source=(
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
   0002-drm-i915-improve-the-catch-all-evict-to-handle-lock-.patch
-  "0003-tt.patch::${_patchsource}/cpu-scheduler/6.1/tt-6.1.patch"
-  "0004-bbr2.patch::${_patchsource}/6.1/0001-bbr2.patch"
-  "0005-clearlinux.patch::${_patchsource}/6.1/0001-clearlinux.patch"
-  "0006-cjktty.patch::${_patchsource}/6.1/0001-cjktty.patch"
+  0003-futex-Resend-potentially-swallowed-owner-death-notif.patch
+  "0004-tt.patch::${_patchsource}/cpu-scheduler/6.1/tt-6.1.patch"
+  "0005-bbr2.patch::${_patchsource}/6.1/0001-bbr2.patch"
+  "0006-clearlinux.patch::${_patchsource}/6.1/0001-clearlinux.patch"
+  "0007-cjktty.patch::${_patchsource}/6.1/0001-cjktty.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb'
+sha256sums=('a3e61377cf4435a9e2966b409a37a1056f6aaa59e561add9125a88e3c0971dfb'
             'SKIP'
             '0571ea17a2e38458096b679418197bbea8c414388f628d122517f3a1f3a31b3a'
-            '3a8f397b89bad95c46f42c0f80ede7536a4a45a28621e00ed486918a55f905ed'
+            'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
             '6d3b9cb4639c1c5eb4e2697aed0dbffa5b4a37d63a0861dec8315dd052723e0e'
-            '01f0f3d1b79fd789e01ba5debb3b63e9716679199b6fd79e81744d688632e273'
-            'a3dc6156ca04fef849662a8febd2ebc7ca175de54253ef293f4c8ce638149507'
+            '865fa8cc41186a42225e89c845d438aefae6332d1ef18b94ef3aae04deb5e784'
+            '9c6191b355fcaf41cfeb92105ea0d24bbc51c993877d3fb5325f139997ede058'
+            '748e40e3a4b889850e8f86aee7ff96a93d43476a6529316bd823e18e23fc82f8'
             '91c6dead2b288a99f894a50715d0b2ae449f64e6fe0f297aece9d705beaa6d9a'
             '016ed515dd7d940e5c22789dd16cbb060365311df72ff62d0b8a10261779f757'
             '5df5caadaf02c1ac50b5565466834754e5aafaaf632ef9e7855478316ef319c8'
@@ -144,12 +146,6 @@ prepare() {
 
   echo "Setting config..."
   cp ../config .config
-
-  scripts/config --disable CONFIG_CGROUP_BPF
-  scripts/config --disable CONFIG_BPF_LSM
-  scripts/config --disable CONFIG_BPF_PRELOAD
-  scripts/config --disable CONFIG_BPF_LIRC_MODE2
-  scripts/config --disable CONFIG_BPF_KPROBE_OVERRIDE
 
   # https://bbs.archlinux.org/viewtopic.php?pid=1824594#p1824594
   scripts/config --enable CONFIG_PSI_DEFAULT_DISABLED
@@ -307,7 +303,7 @@ _package() {
 
 _package-headers() {
   pkgdesc="Headers and scripts for building modules for ${pkgbase/linux/Linux} kernel"
-  depends=("$pkgbase") # added to keep kernel and headers packages matched
+  depends=(pahole "$pkgbase") # added to keep kernel and headers packages matched
   #groups=('ck-generic')
 
   cd linux-${pkgver}
@@ -323,8 +319,10 @@ _package-headers() {
   # required when STACK_VALIDATION is enabled
   install -Dt "$builddir/tools/objtool" tools/objtool/objtool
 
-  # required when DEBUG_INFO_BTF_MODULES is enabled
-  #install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+    # required when DEBUG_INFO_BTF_MODULES is enabled
+    if [ -f tools/bpf/resolve_btfids/resolve_btfids ]; then
+        install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+    fi
 
   echo "Installing headers..."
   cp -t "$builddir" -a include
