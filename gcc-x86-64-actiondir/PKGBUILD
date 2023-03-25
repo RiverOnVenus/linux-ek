@@ -79,7 +79,7 @@ _subarch=36
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.1.12
+pkgver=6.2.8
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -92,8 +92,8 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-6.1.y
-_commit=fdbdf7e0ec56cd59e11d024c473e766429271a5c
+_ckhrtimer=linux-6.2.y
+_commit=a8be5531ff07e300525c20bdbbe38cc6a665a0c4
 
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
@@ -103,25 +103,27 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
-  "0002-tt.patch::${_patchsource}/cpu-scheduler/6.1/tt-6.1.patch"
-  "0003-bbr2.patch::${_patchsource}/6.1/0001-bbr2.patch"
-  "0004-clearlinux.patch::${_patchsource}/6.1/0001-clearlinux.patch"
-  "0005-cjktty.patch::${_patchsource}/6.1/0001-cjktty.patch"
+  0002-bpf-x86-Fix-IP-after-emitting-call-depth-accounting.patch
+  "0003-tt.patch::${_patchsource}/cpu-scheduler/6.2/0001-tt-6.2.patch"
+  "0004-bbr2.patch::${_patchsource}/6.2/0001-bbr2.patch"
+  "0005-clearlinux.patch::${_patchsource}/6.2/0001-clearlinux.patch"
+  "0006-cjktty.patch::${_patchsource}/6.2/0001-cjktty.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('d47aa675170904dcc93eeaa7c96db54d476a11c5d3e8cf3d3b96e364e2a0edea'
+sha256sums=('fed0ad87d42f83a70ce019ff2800bc30a855e672e72bf6d54a014d98d344f665'
             'SKIP'
-            '81a9379fd2eac51bb2dc69d83737d7fbdd41fcaca5af4873e3666d3c706760d1'
+            'f9a0027bea53a7160759858c535eb0ba0b3bea34c0130f47f2d5bba75d102170'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
-            '6d3b9cb4639c1c5eb4e2697aed0dbffa5b4a37d63a0861dec8315dd052723e0e'
-            'a730917aa1ab33e79c094b69c3eb3ce080e6f9f4cb7a5b64c3e6b9ef0c53e631'
-            '91c6dead2b288a99f894a50715d0b2ae449f64e6fe0f297aece9d705beaa6d9a'
-            '016ed515dd7d940e5c22789dd16cbb060365311df72ff62d0b8a10261779f757'
-            '5df5caadaf02c1ac50b5565466834754e5aafaaf632ef9e7855478316ef319c8'
-            'c5bdf89d7867c368dfd7b7c16e5a50a99ca8022de28ab15315bdcb5dab8aad85')
+            '8cc3b4abb89c539fa1588aad65cd5bc79abbf8fcc1c885652e52fb8f66bf0199'
+            '2e7592ff8fb3cd0c461abb6524bc9f097033abe7fb9d464702b307eab97bd58f'
+            '9a289c848cd8ead4024aeaed951bfbc643686ea0a01fd14160d8031cdf976ae3'
+            '1d998b44f9f58decc277532f4327767f334e6148cdf1ef691e6f67b91fcb26a3'
+            '5945526efec4e5b436cc36650ead87da80fb9e1a5d275bcc3f9ea102bf0e4d50'
+            '500a9c59194334914e395f35d88ee87dca7f8af44964e29d8a43310f56573a1e'
+            '5dac65eb907c4a8970ca8caa2c63c9a3645ef96bcaa2cfb3cb10197b3d92db80')
 
 prepare() {
   cd linux-${pkgver}
@@ -265,7 +267,7 @@ build() {
 
 _package() {
   pkgdesc="The Linux kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
-  depends=(coreutils kmod initramfs)
+  depends=(coreutils kmod initramfs pahole)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
   provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE KSMBD-MODULE)
