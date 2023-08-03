@@ -83,7 +83,7 @@ _subarch=41
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.3.8
+pkgver=6.4.7
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -105,8 +105,8 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-6.3.y
-_commit=d09271d382ae852c98e17bd7426fc8021e7b465e
+_ckhrtimer=linux-6.4.y
+_commit=2870d6ac146aa658af60bb18a9c7503efe5992d4
 
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
@@ -115,26 +115,24 @@ source=(
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
-  0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
-  "0002-tt.patch::${_patchsource}/cpu-scheduler/6.3/0001-tt-6.3.patch"
-  "0003-bbr2.patch::${_patchsource}/6.3/0001-bbr2.patch"
-  "0004-clearlinux.patch::${_patchsource}/6.3/0001-clearlinux.patch"
-  "0005-cjktty.patch::${_patchsource}/6.3/0001-cjktty.patch"
+    0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
+  "0002-tt.patch::${_patchsource}/cpu-scheduler/6.4/0001-tt-6.4.patch"
+  "0003-bbr2.patch::${_patchsource}/6.4/0001-bbr2.patch"
+  "0004-cjktty.patch::${_patchsource}/6.4/0001-cjktty.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('4323d421250e2e444c35d36f4aa8ddb56591dedc25c68d359d19c4ef9dd20955'
+sha256sums=('de143cb61dcaa756c05f56ff35144316d810615819518a33e34754f064c4a7d8'
             'SKIP'
-            '6508516de94ed941ae755d89807610dc51fe1229dbfecdf8a82604a8d33242ce'
+            'f9b4320b074f279d666e86870f950bcea68f9f1912093626036410b8b3152a6d'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
-            'f781da5ba492d8912c7d4cddac02f21c1799532182e23374c80c19ff0c617373'
-            '927ea3b7f4fc525a50352464e9623ca9d99044344f30a80b91eb8adf6deb21d2'
-            '2d00932c349daafe906681788e7759ed5e684859c0f8ecd5f91b8266b28947ea'
-            'a27c89f588ffd6f8e1d2efc25cef2cf7eb90426c50e8b63c7152d71f7dcc27fd'
-            'bc1fc0ed2f460f3d17bef938bb612e1587578c2736ea21e1853b9c66bb487853'
-            '427b16aeece1b62667ab34d45e43e4f476f5f4875daf8553597c95e2bfa22ef1')
+            'ed0b8773d66079198edd1ecdbe0564d6ad33c641e82d85375e50a2d9e0275144'
+            '123e9bdc5e28f9cac322c271cf0edd010036d2b2b1fdaba8adecf1be7ed1eb72'
+            'ce23f2791a30896e75b98ea4c151fdd24fa59ec0803c8ccee364a93b7bae76e8'
+            '33d85b285e2f8357fa493aa1490482e4102440b4f11765b8f949c3c904a5e494'
+            'a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf')
 _make() {
   test -s version
   make KERNELRELEASE="$(<version)" "$@"
