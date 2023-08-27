@@ -30,6 +30,9 @@ _disable_debug=y
 ## Enable zram/zswap ZSTD compression
 _zstd_compression=y
 
+# enable clearlinux patches for gcc
+_clr_enable=y
+
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
 # option is 39.
@@ -84,7 +87,7 @@ _subarch=39
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=6.4.12
-pkgrel=1
+pkgrel=2
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -126,6 +129,12 @@ source=(
   "0006-bbr2.patch::${_patchsource}/6.4/0001-bbr2.patch"
   "0007-cjktty.patch::${_patchsource}/6.4/0001-cjktty.patch"
 )
+
+## clearlinux patches
+if [ -n "$_clr_enable" ]; then
+    source+=("linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}")
+fi
+
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
@@ -239,11 +248,14 @@ prepare() {
   done
 
   ### Add Clearlinux patches
-  for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
-    grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0402' | sed -n 's/.*: //p'); do
-      echo "Applying patch ${i}..."
-      patch -Np1 -i "$srcdir/linux-clear/${i}"
-  done
+  if [ -n "$_clr_enable" ]; then
+    echo "Patching with clearlinux patches..."
+    for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
+      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0402' | sed -n 's/.*: //p'); do
+        echo "Applying patch ${i}..."
+        patch -Np1 -i "$srcdir/linux-clear/${i}"
+    done
+  fi
 
   if [[ -n "$_clangbuild" ]]; then
     scripts/config -e LTO_CLANG_FULL

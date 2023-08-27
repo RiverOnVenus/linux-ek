@@ -1,6 +1,6 @@
 pkgbase = linux-ck-tt
 	pkgver = 6.4.12
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/RiverOnVenus/linux-ck-tt
 	arch = x86_64
 	arch = x86_64_v3
@@ -29,6 +29,7 @@ pkgbase = linux-ck-tt
 	source = 0005-tt.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/cpu-scheduler/6.4/0001-tt-6.4.patch
 	source = 0006-bbr2.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.4/0001-bbr2.patch
 	source = 0007-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.4/0001-cjktty.patch
+	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.4.11-1349
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
 	sha256sums = cca91be956fe081f8f6da72034cded96fe35a50be4bfb7e103e354aa2159a674
