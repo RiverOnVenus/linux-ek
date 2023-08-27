@@ -83,7 +83,7 @@ _subarch=41
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.4.7
+pkgver=6.4.12
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -110,26 +110,36 @@ _commit=2870d6ac146aa658af60bb18a9c7503efe5992d4
 
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
+
+_clr=6.4.11-1349
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config         # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
-    0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
-  "0002-tt.patch::${_patchsource}/cpu-scheduler/6.4/0001-tt-6.4.patch"
-  "0003-bbr2.patch::${_patchsource}/6.4/0001-bbr2.patch"
-  "0004-cjktty.patch::${_patchsource}/6.4/0001-cjktty.patch"
+  "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
+  0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
+  0002-drivers-firmware-skip-simpledrm-if-nvidia-drm.modese.patch
+  0003-tpm-Don-t-make-vendor-check-required-for-probe.patch
+  0004-sphinx-kfigure.py-Convert-outdir-to-str-before-using.patch
+  "0005-tt.patch::${_patchsource}/cpu-scheduler/6.4/0001-tt-6.4.patch"
+  "0006-bbr2.patch::${_patchsource}/6.4/0001-bbr2.patch"
+  "0007-cjktty.patch::${_patchsource}/6.4/0001-cjktty.patch"
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('de143cb61dcaa756c05f56ff35144316d810615819518a33e34754f064c4a7d8'
+sha256sums=('cca91be956fe081f8f6da72034cded96fe35a50be4bfb7e103e354aa2159a674'
             'SKIP'
-            'f9b4320b074f279d666e86870f950bcea68f9f1912093626036410b8b3152a6d'
+            'dad89a5db7c4e19ae29c60861000f3669e86c2e957d445a675596c1e85a57464'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
             'ed0b8773d66079198edd1ecdbe0564d6ad33c641e82d85375e50a2d9e0275144'
-            '123e9bdc5e28f9cac322c271cf0edd010036d2b2b1fdaba8adecf1be7ed1eb72'
+            'SKIP'
+            '26932226873903df3e4c330581b0112e4817ecb55c60bebc969f8aeba440a7f7'
+            'ca8e9ae6b10b394f71314dcbc381832d5c2ab654aa1c4bd24a25a0ba3588c3a3'
+            '83dec929306e9dc54d8f786866a478ee530912ba722479d6dbfb099d5023a7cb'
+            '65b6e434abc21c29a33a4d73dee40d33679f04ee740ded8fe88c320d1248055c'
             'ce23f2791a30896e75b98ea4c151fdd24fa59ec0803c8ccee364a93b7bae76e8'
             '33d85b285e2f8357fa493aa1490482e4102440b4f11765b8f949c3c904a5e494'
             'a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf')
@@ -226,6 +236,13 @@ prepare() {
 
   for i in ../linux-patches-"$_commit"/"$_ckhrtimer"/ck-hrtimer/0*.patch; do
     patch -Np1 -i $i
+  done
+
+  ### Add Clearlinux patches
+  for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
+    grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0402' | sed -n 's/.*: //p'); do
+      echo "Applying patch ${i}..."
+      patch -Np1 -i "$srcdir/linux-clear/${i}"
   done
 
   if [[ -n "$_clangbuild" ]]; then
