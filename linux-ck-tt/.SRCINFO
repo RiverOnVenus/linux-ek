@@ -1,6 +1,6 @@
 pkgbase = linux-ck-tt
 	pkgver = 6.4.12
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/RiverOnVenus/linux-ck-tt
 	arch = x86_64
 	arch = x86_64_v3

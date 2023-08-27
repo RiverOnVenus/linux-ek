@@ -87,7 +87,7 @@ _subarch=39
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=6.4.12
-pkgrel=2
+pkgrel=3
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -151,7 +151,8 @@ sha256sums=('cca91be956fe081f8f6da72034cded96fe35a50be4bfb7e103e354aa2159a674'
             '65b6e434abc21c29a33a4d73dee40d33679f04ee740ded8fe88c320d1248055c'
             'ce23f2791a30896e75b98ea4c151fdd24fa59ec0803c8ccee364a93b7bae76e8'
             '33d85b285e2f8357fa493aa1490482e4102440b4f11765b8f949c3c904a5e494'
-            'a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf')
+            'a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf'
+            'SKIP')
 _make() {
   test -s version
   make KERNELRELEASE="$(<version)" "$@"

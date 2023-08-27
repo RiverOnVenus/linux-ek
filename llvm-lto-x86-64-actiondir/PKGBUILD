@@ -87,7 +87,7 @@ _subarch=39
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
 pkgver=6.4.12
-pkgrel=2
+pkgrel=3
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)

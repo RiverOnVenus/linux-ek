@@ -1,6 +1,6 @@
 pkgbase = linux-ck-tt
 	pkgver = 6.4.12
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/RiverOnVenus/linux-ck-tt
 	arch = x86_64
 	arch = x86_64_v3
@@ -45,6 +45,7 @@ pkgbase = linux-ck-tt
 	sha256sums = ce23f2791a30896e75b98ea4c151fdd24fa59ec0803c8ccee364a93b7bae76e8
 	sha256sums = 33d85b285e2f8357fa493aa1490482e4102440b4f11765b8f949c3c904a5e494
 	sha256sums = a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf
+	sha256sums = SKIP
 
 pkgname = linux-ck-tt
 	pkgdesc = The Linux kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches
