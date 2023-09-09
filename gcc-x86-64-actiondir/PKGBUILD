@@ -26,7 +26,7 @@ _clangbuild=
 _per_gov=
 
 # disable debug to lower the size of the kernel
-_disable_debug=
+_disable_debug=y
 
 ### Enable TCP_CONG_BBR3
 _tcp_bbr3=y
