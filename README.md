@@ -7,7 +7,7 @@ The Linux-ck-tt kernel and modules with [Con Kolivas](https://github.com/ckoliva
 - [Con Kolivas' hrtimer patches](https://github.com/ckolivas/linux/tree/5.12-ck) and the recommended 1000 Hz tick rate. 
 - [TT-CPU-Scheduler](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based on their behaviours and control the schedulling based on their types. \## fixed for 5.18 by [Parvinder Singh](https://github.com/psndna88).
 - [kernel_compiler_patch](https://github.com/graysky2/kernel_compiler_patch) enables compiler optimizations for additional CPUs.
-- [BBR v2](https://github.com/google/bbr) is a congestion control algorithm proposed by Google.
+- [BBR v3](https://github.com/google/bbr/blob/v3/README.md) is a congestion control algorithm proposed by Google.
 - [clearlinux](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
 - [CJKTTY](https://github.com/zhmars/cjktty-patches) supports displaying CJK Unified Ideographs on Linux tty.
 
