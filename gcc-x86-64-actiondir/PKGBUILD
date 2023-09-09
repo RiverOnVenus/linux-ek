@@ -1,7 +1,8 @@
-# Maintainer: RiverOnVenus (zhui) <RiverOnVenus AT gmail DOT com>
+# Maintainer: RiverOnVenus <error@zhui.dev>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: graysky <graysky AT archlinux DOT us>
 # Contributor: Peter Jung ptr1337 <admin@ptr1337.dev> && Piotr Gorski <piotrgorski@cachyos.org>
+# Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 ### BUILD OPTIONS
 # Any/all of the next three variables may be set to ANYTHING
@@ -22,10 +23,13 @@ _localmodcfg=
 _clangbuild=
 
 ### Set performance governor as default
-_per_gov=y
+_per_gov=
 
 # disable debug to lower the size of the kernel
-_disable_debug=y
+_disable_debug=
+
+### Enable TCP_CONG_BBR3
+_tcp_bbr3=y
 
 ## Enable zram/zswap ZSTD compression
 _zstd_compression=y
@@ -86,8 +90,8 @@ _subarch=39
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.4.12
-pkgrel=3
+pkgver=6.5.2
+pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL2)
@@ -108,13 +112,13 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-6.4.y
-_commit=2870d6ac146aa658af60bb18a9c7503efe5992d4
+_ckhrtimer=linux-6.5.y
+_commit=6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9
 
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.4.11-1349
+_clr=6.5.2-1357
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config         # the main kernel config file
@@ -123,11 +127,12 @@ source=(
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
   0002-drivers-firmware-skip-simpledrm-if-nvidia-drm.modese.patch
-  0003-tpm-Don-t-make-vendor-check-required-for-probe.patch
+  0003-tpm-Enable-hwrng-only-for-Pluton-on-AMD-CPUs.patch
   0004-sphinx-kfigure.py-Convert-outdir-to-str-before-using.patch
-  "0005-tt.patch::${_patchsource}/cpu-scheduler/6.4/0001-tt-6.4.patch"
-  "0006-bbr2.patch::${_patchsource}/6.4/0001-bbr2.patch"
-  "0007-cjktty.patch::${_patchsource}/6.4/0001-cjktty.patch"
+  0005-ASoC-Intel-soc-acpi-fix-Dell-SKU-0B34.patch
+  "0006-tt.patch::${_patchsource}/cpu-scheduler/6.5/0001-tt-6.5.patch"
+  "0007-bbr3.patch::${_patchsource}/6.5/0001-bbr3.patch"
+  "0008-cjktty.patch::${_patchsource}/6.5/0001-cjktty.patch"
 )
 
 ## clearlinux patches
@@ -139,19 +144,20 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('cca91be956fe081f8f6da72034cded96fe35a50be4bfb7e103e354aa2159a674'
+sha256sums=('2027e14057d568ad3ddc100dadf4c8853a49b031270478a61d88f6011572650f'
             'SKIP'
-            'dad89a5db7c4e19ae29c60861000f3669e86c2e957d445a675596c1e85a57464'
+            'b36c2945633d49b5f85600b58989a58f5ac61e31ca2c02f2046ce15b1462ea4b'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
-            'ed0b8773d66079198edd1ecdbe0564d6ad33c641e82d85375e50a2d9e0275144'
+            'a86a59d089ddd4f31565ff6a27ba74f4697ffa0ab0f57dc839e1da6ab83d77a4'
             'SKIP'
-            '26932226873903df3e4c330581b0112e4817ecb55c60bebc969f8aeba440a7f7'
-            'ca8e9ae6b10b394f71314dcbc381832d5c2ab654aa1c4bd24a25a0ba3588c3a3'
-            '83dec929306e9dc54d8f786866a478ee530912ba722479d6dbfb099d5023a7cb'
-            '65b6e434abc21c29a33a4d73dee40d33679f04ee740ded8fe88c320d1248055c'
-            'ce23f2791a30896e75b98ea4c151fdd24fa59ec0803c8ccee364a93b7bae76e8'
-            '33d85b285e2f8357fa493aa1490482e4102440b4f11765b8f949c3c904a5e494'
-            'a06671be0ea57693c09f9f96fabfdefd69153bdda2bf45d516825f145e6b75cf'
+            '806801da9c5c251a9087a562bb1c203324c484cab60080f62452212e3e02eb77'
+            '8c0d18bf189b0dcbe319a850bfa21dba8baab091251ec01ef52019478bc3a82a'
+            '92292c9743f496c064c33046bad21670732762e6261227b8ceecb8be874723b8'
+            'cd70f794589c5481ec542d508fd23ca35fe42df5bfdbe3454a8443fae191e5eb'
+            'f9f00f18529c7f15cc476dbe0344636a3e76537476fffe9c37fea16a157e17ce'
+            'e32ad55fb8aa583dea18c84498929ef8b6077db715a073841534d8e2be099406'
+            'e71b468b3e54a68728169af43b321dc9c037de9f0834190d0d0b8c9b9eae5da2'
+            'd03d37559e403bf8700d5b380578a257ec32d2c4c869b659a60468394a5f7532'
             'SKIP')
 _make() {
   test -s version
@@ -184,6 +190,10 @@ prepare() {
   # https://bbs.archlinux.org/viewtopic.php?pid=1824594#p1824594
   scripts/config --enable CONFIG_PSI_DEFAULT_DISABLED
 
+  # https://bbs.archlinux.org/viewtopic.php?pid=1863567#p1863567
+  scripts/config --disable CONFIG_LATENCYTOP
+  scripts/config --disable CONFIG_SCHED_DEBUG
+
   # FS#66613
   # https://bugzilla.kernel.org/show_bug.cgi?id=207173#c6
   scripts/config --disable CONFIG_KVM_WERROR
@@ -196,15 +206,23 @@ prepare() {
   scripts/config --enable TT_SCHED \
       --enable TT_ACCOUNTING_STATS
 
-    ### Enable bbr2
-  if [ -n "$_tcp_bbr2" ]; then
-      echo "Disabling TCP_CONG_CUBIC..."
-      scripts/config --module TCP_CONG_CUBIC \
-          --disable DEFAULT_CUBIC \
-          --enable TCP_CONG_BBR2 \
-          --enable DEFAULT_BBR2 \
-          --set-str DEFAULT_TCP_CONG bbr2
-  fi
+    ### Enable bbr3
+    if [ -n "$_tcp_bbr3" ]; then
+        echo "Disabling TCP_CONG_CUBIC..."
+        scripts/config -m TCP_CONG_CUBIC \
+            -d DEFAULT_CUBIC \
+            -e TCP_CONG_BBR \
+            -e DEFAULT_BBR \
+            --set-str DEFAULT_TCP_CONG bbr
+
+        # BBR3 doesn't work properly with FQ_CODEL
+        echo "Disabling fq_codel by default..."
+        scripts/config -m NET_SCH_FQ_CODEL \
+            -e NET_SCH_FQ \
+            -d DEFAULT_FQ_CODEL \
+            -e DEFAULT_FQ \
+            --set-str DEFAULT_NET_SCH fq
+    fi
 
     ### Enable zram/zswap ZSTD compression
   if [ -n "$_zstd_compression" ]; then
@@ -237,8 +255,6 @@ prepare() {
           --disable PM_ADVANCED_DEBUG \
           --disable PM_SLEEP_DEBUG \
           --disable ACPI_DEBUG \
-          --disable SCHED_DEBUG \
-          --disable LATENCYTOP \
           --disable DEBUG_PREEMPT
   fi
   # these are ck's htrimer patches
@@ -252,7 +268,7 @@ prepare() {
   if [ -n "$_clr_enable" ]; then
     echo "Patching with clearlinux patches..."
     for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
-      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0402' | sed -n 's/.*: //p'); do
+      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138' | sed -n 's/.*: //p'); do
         echo "Applying patch ${i}..."
         patch -Np1 -i "$srcdir/linux-clear/${i}"
     done
