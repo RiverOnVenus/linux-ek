@@ -26,7 +26,7 @@ _clangbuild=
 _per_gov=
 
 # disable debug to lower the size of the kernel
-_disable_debug=
+_disable_debug=y
 
 ### Enable TCP_CONG_BBR3
 _tcp_bbr3=y
@@ -90,7 +90,7 @@ _subarch=
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.5.2
+pkgver=6.5.5
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
@@ -118,21 +118,26 @@ _commit=6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.5.2-1357
+_clr=6.5.4-1363
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
-  config         # the main kernel config file
+  config  # the main kernel config file
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
   0002-drivers-firmware-skip-simpledrm-if-nvidia-drm.modese.patch
-  0003-tpm-Enable-hwrng-only-for-Pluton-on-AMD-CPUs.patch
-  0004-sphinx-kfigure.py-Convert-outdir-to-str-before-using.patch
-  0005-ASoC-Intel-soc-acpi-fix-Dell-SKU-0B34.patch
-  "0006-tt.patch::${_patchsource}/cpu-scheduler/6.5/0001-tt-6.5.patch"
-  "0007-bbr3.patch::${_patchsource}/6.5/0001-bbr3.patch"
-  "0008-cjktty.patch::${_patchsource}/6.5/0001-cjktty.patch"
+  0003-ASoC-Intel-soc-acpi-fix-Dell-SKU-0B34.patch
+  0004-btrfs-wait-on-uncached-block-groups-on-every-allocat.patch
+  0005-btrfs-set-last-dir-index-to-the-current-last-index-w.patch
+  0006-btrfs-refresh-dir-last-index-during-a-rewinddir-3-ca.patch
+  0007-btrfs-fix-race-between-reading-a-directory-and-addin.patch
+  0008-i915-Limit-the-length-of-an-sg-list-to-the-requested.patch
+  0009-net-wwan-t7xx-Add-AP-CLDMA.patch
+  0010-Revert-101bd907b424-misc-rtsx-judge-ASPM-Mode-to-set.patch
+  "0011-tt.patch::${_patchsource}/cpu-scheduler/6.5/0001-tt-6.5.patch"
+  "0012-bbr3.patch::${_patchsource}/6.5/0001-bbr3.patch"
+  "0013-cjktty.patch::${_patchsource}/6.5/0001-cjktty.patch"
 )
 
 ## clearlinux patches
@@ -144,17 +149,22 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('2027e14057d568ad3ddc100dadf4c8853a49b031270478a61d88f6011572650f'
+sha256sums=('8cf10379f7df8ea731e09bff3d0827414e4b643dd41dc99d0af339669646ef95'
             'SKIP'
-            'b36c2945633d49b5f85600b58989a58f5ac61e31ca2c02f2046ce15b1462ea4b'
+            '46451dbc3305d4c2e726a2f1943bddf697c5bb6815d93e5baed80bca82e53fdc'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
             'a86a59d089ddd4f31565ff6a27ba74f4697ffa0ab0f57dc839e1da6ab83d77a4'
             'SKIP'
-            '806801da9c5c251a9087a562bb1c203324c484cab60080f62452212e3e02eb77'
-            '8c0d18bf189b0dcbe319a850bfa21dba8baab091251ec01ef52019478bc3a82a'
-            '92292c9743f496c064c33046bad21670732762e6261227b8ceecb8be874723b8'
-            'cd70f794589c5481ec542d508fd23ca35fe42df5bfdbe3454a8443fae191e5eb'
-            'f9f00f18529c7f15cc476dbe0344636a3e76537476fffe9c37fea16a157e17ce'
+            '9277f8bd1f8450edaf36ca124d5019520cf9c6f28513dc1dab1f7159be03dfb5'
+            '5ed15d63106e050c6aa92874fcb33b1f827702d42d4281a4b0366e2387f01a07'
+            '882313cbb296e62dec0d1780aad2c3086fc0fbba86438dd5cef0a1b9519a4224'
+            'fa3b984d08e4d764cb6df48d9cafe19284cce059e7856b0e860bce332e92890b'
+            '3dfd78e809b04a8f1374687f5be667a6275625b08f068a44470c3f2a8a37d4a1'
+            'c623b7ac173cdd19a537d0767b7b82b13f166a9705cad16896556e8b9f7d3c87'
+            'b6682cec5ea11cc06c27be8c3f0dc25f0168f28308e64c84d4c53f012d02f282'
+            '6bf774b0294488c01fc9392c69c355859d3fa7ea62127c3cb2f11cedf860e848'
+            '6c4dfefacd42c571bf53ddaf031566e44832ce87480c63553ddf149620e00e4e'
+            '242b8868d2a1c8a403e05c0da85f0dc48192ff22adad97e552b4213a19839676'
             'e32ad55fb8aa583dea18c84498929ef8b6077db715a073841534d8e2be099406'
             'e71b468b3e54a68728169af43b321dc9c037de9f0834190d0d0b8c9b9eae5da2'
             'd03d37559e403bf8700d5b380578a257ec32d2c4c869b659a60468394a5f7532'
@@ -171,14 +181,11 @@ prepare() {
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux}" > localversion.20-pkgname
 
-  make defconfig
-  make -s kernelrelease > version
-  make mrproper
-
   local src
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
+    src="${src%.zst}"
     [[ $src = *.patch ]] || continue
     echo "Applying patch $src..."
     patch -Np1 < "../$src"
@@ -265,10 +272,17 @@ prepare() {
   done
 
   ### Add Clearlinux patches
+  echo "Patching with clear patches..."
+
   if [ -n "$_clr_enable" ]; then
     echo "Patching with clearlinux patches..."
     for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
       grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138' | sed -n 's/.*: //p'); do
+        if [ -n "$_clangbuild" ]; then
+          if [ "${i}" == "0162-extra-optmization-flags.patch" ] ; then
+            continue
+          fi
+        fi
         echo "Applying patch ${i}..."
         patch -Np1 -i "$srcdir/linux-clear/${i}"
     done
@@ -310,6 +324,7 @@ prepare() {
       fi
     fi
 
+  make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
 
   [[ -z "$_makenconfig" ]] || make LLVM=$_LLVM LLVM_IAS=$_LLVM nconfig
@@ -364,7 +379,7 @@ _package() {
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   echo "Installing modules..."
-  _make LLVM=$_LLVM LLVM_IAS=$_LLVM INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+  ZSTD_CLEVEL=19 make LLVM=$_LLVM LLVM_IAS=$_LLVM INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
   # remove build and source links
