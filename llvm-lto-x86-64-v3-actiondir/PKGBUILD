@@ -90,7 +90,7 @@ _subarch=41
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.5.8
+pkgver=6.6.10
 _upstream=arch1
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
@@ -113,13 +113,13 @@ options=('!strip')
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-6.5.y
-_commit=6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9
+_ckhrtimer=linux-6.6.3+
+_commit=0253362c705f4fb947d8abf927dfa23403e98eb4
 
 _gcc_more_v=20221217
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.5.7-1371
+_clr=6.6.10-1398
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config  # the main kernel config file
@@ -127,9 +127,8 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "0001-tt.patch::${_patchsource}/cpu-scheduler/6.5/0001-tt-6.5.patch"
-  "0002-bbr3.patch::${_patchsource}/6.5/0001-bbr3.patch"
-  "0003-cjktty.patch::${_patchsource}/6.5/0001-cjktty.patch"
+  "0002-bbr3.patch::${_patchsource}/6.6/0001-bbr3.patch"
+  "0003-cjktty.patch::${_patchsource}/6.6/0001-cjktty.patch"
 )
 
 ## clearlinux patches
@@ -141,16 +140,15 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('299cca897d90deaa176eebec42f0a80eeb7516afed330a45c14da9de086cf717'
+sha256sums=('9ee627e4c109aec7fca3eda5898e81d201af2c7eb2f7d9d7d94c1f0e1205546c'
             'SKIP'
-            '5aff0f8584e01165dc20cd107df338f57a13ce7f0da14e07f4c9097cd748469f'
-            '1674849c22c0516926af78d7554fb954b6104ad0cb31d056234b221d075a244f'
+            '18fcff9fa723cef2feb654dae966a149f0ef0fea9dda1780d3de0ff07d4f8ab7'
+            'ad84324ce12f7c27664e79ebeaf4f7b6b52e1abe5777454b4d72c287c928f99a'
             'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
-            'a86a59d089ddd4f31565ff6a27ba74f4697ffa0ab0f57dc839e1da6ab83d77a4'
+            '89320b47288f40100e03039585733fe98fd1b60902616f95987b66cbb97502df'
             'SKIP'
-            'e32ad55fb8aa583dea18c84498929ef8b6077db715a073841534d8e2be099406'
-            'e71b468b3e54a68728169af43b321dc9c037de9f0834190d0d0b8c9b9eae5da2'
-            'd03d37559e403bf8700d5b380578a257ec32d2c4c869b659a60468394a5f7532'
+            'db65e8dff5152588b946f02e1ab5a38d4ad482864158baca5de499cd649cb389'
+            '47a008c8b3b684330f2b80beeaca20105ab3afcded9530b28b078821bd062ba6'
             'SKIP')
 
 prepare() {
@@ -262,7 +260,7 @@ prepare() {
   if [ -n "$_clr_enable" ]; then
     echo "Patching with clearlinux patches..."
     for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
-      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138' | sed -n 's/.*: //p'); do
+      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0139' | sed -n 's/.*: //p'); do
         if [ -n "$_clangbuild" ]; then
           if [ "${i}" == "0162-extra-optmization-flags.patch" ] ; then
             continue
@@ -367,8 +365,8 @@ _package() {
   ZSTD_CLEVEL=19 make LLVM=$_LLVM LLVM_IAS=$_LLVM INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
-  # remove build and source links
-  rm "$modulesdir"/{source,build}
+  # remove build link
+  rm "$modulesdir"/build
 }
 
 _package-headers() {

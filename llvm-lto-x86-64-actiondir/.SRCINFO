@@ -1,5 +1,5 @@
 pkgbase = linux-ck-tt
-	pkgver = 6.5.8
+	pkgver = 6.6.10
 	pkgrel = 1
 	url = https://github.com/RiverOnVenus/linux-ck-tt
 	arch = x86_64
@@ -20,29 +20,27 @@ pkgbase = linux-ck-tt
 	makedepends = lld
 	makedepends = python
 	options = !strip
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.5.8.tar.xz
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.5.8.tar.sign
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.6.10.tar.xz
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.6.10.tar.sign
 	source = config
-	source = https://github.com/archlinux/linux/releases/download/v6.5.8-arch1/linux-v6.5.8-arch1.patch.zst
+	source = https://github.com/archlinux/linux/releases/download/v6.6.10-arch1/linux-v6.6.10-arch1.patch.zst
 	source = more-uarches-20221217.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/20221217.tar.gz
-	source = ck-hrtimer-6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9.tar.gz::https://github.com/graysky2/linux-patches/archive/6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9.tar.gz
-	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.5.7-1371
-	source = 0001-tt.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/cpu-scheduler/6.5/0001-tt-6.5.patch
-	source = 0002-bbr3.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.5/0001-bbr3.patch
-	source = 0003-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.5/0001-cjktty.patch
-	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.5.7-1371
+	source = ck-hrtimer-0253362c705f4fb947d8abf927dfa23403e98eb4.tar.gz::https://github.com/graysky2/linux-patches/archive/0253362c705f4fb947d8abf927dfa23403e98eb4.tar.gz
+	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.6.10-1398
+	source = 0002-bbr3.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.6/0001-bbr3.patch
+	source = 0003-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.6/0001-cjktty.patch
+	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.6.10-1398
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
-	sha256sums = 299cca897d90deaa176eebec42f0a80eeb7516afed330a45c14da9de086cf717
+	sha256sums = 9ee627e4c109aec7fca3eda5898e81d201af2c7eb2f7d9d7d94c1f0e1205546c
 	sha256sums = SKIP
-	sha256sums = 5aff0f8584e01165dc20cd107df338f57a13ce7f0da14e07f4c9097cd748469f
-	sha256sums = 1674849c22c0516926af78d7554fb954b6104ad0cb31d056234b221d075a244f
+	sha256sums = 18fcff9fa723cef2feb654dae966a149f0ef0fea9dda1780d3de0ff07d4f8ab7
+	sha256sums = ad84324ce12f7c27664e79ebeaf4f7b6b52e1abe5777454b4d72c287c928f99a
 	sha256sums = f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0
-	sha256sums = a86a59d089ddd4f31565ff6a27ba74f4697ffa0ab0f57dc839e1da6ab83d77a4
+	sha256sums = 89320b47288f40100e03039585733fe98fd1b60902616f95987b66cbb97502df
 	sha256sums = SKIP
-	sha256sums = e32ad55fb8aa583dea18c84498929ef8b6077db715a073841534d8e2be099406
-	sha256sums = e71b468b3e54a68728169af43b321dc9c037de9f0834190d0d0b8c9b9eae5da2
-	sha256sums = d03d37559e403bf8700d5b380578a257ec32d2c4c869b659a60468394a5f7532
+	sha256sums = db65e8dff5152588b946f02e1ab5a38d4ad482864158baca5de499cd649cb389
+	sha256sums = 47a008c8b3b684330f2b80beeaca20105ab3afcded9530b28b078821bd062ba6
 	sha256sums = SKIP
 
 pkgname = linux-ck-tt
