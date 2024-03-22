@@ -90,36 +90,39 @@ _subarch=41
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ck-tt
-pkgver=6.6.10
+pkgver=6.8.1
 _upstream=arch1
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
-license=(GPL2)
+license=(GPL-2.0-only)
 makedepends=(
   bc
   cpio
   gettext
-  git
   libelf
   pahole
-  python
   perl
+  python
   tar
   xz
 )
 [[ -n "$_clangbuild" ]] && makedepends+=(clang llvm lld python)
-options=('!strip')
+options=(
+  !debug
+  !strip
+)
+
 
 # https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html
 # acknowledgment to xanmod for initially keeping the hrtimer patches up to date
-_ckhrtimer=linux-6.6.3+
-_commit=0253362c705f4fb947d8abf927dfa23403e98eb4
+_ckhrtimer=linux-6.8.y
+_commit=ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7
 
-_gcc_more_v=20221217
+_gcc_more_v=20240221.2
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.6.10-1398
+_clr=6.8.1-1418
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config  # the main kernel config file
@@ -127,8 +130,8 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "0002-bbr3.patch::${_patchsource}/6.6/0001-bbr3.patch"
-  "0003-cjktty.patch::${_patchsource}/6.6/0001-cjktty.patch"
+  "0002-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
+ # "0003-cjktty.patch::${_patchsource}/6.8/0001-cjktty.patch"
 )
 
 ## clearlinux patches
@@ -140,16 +143,15 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('9ee627e4c109aec7fca3eda5898e81d201af2c7eb2f7d9d7d94c1f0e1205546c'
+sha256sums=('8d0c8936e3140a0fbdf511ad7a9f21121598f3656743898f47bb9052d37cff68'
             'SKIP'
             '18fcff9fa723cef2feb654dae966a149f0ef0fea9dda1780d3de0ff07d4f8ab7'
-            'ad84324ce12f7c27664e79ebeaf4f7b6b52e1abe5777454b4d72c287c928f99a'
-            'f1d586e111932890ad5e0df15d092fb9b3f87bae4ea17812aae9b0ec98fe2db0'
-            '89320b47288f40100e03039585733fe98fd1b60902616f95987b66cbb97502df'
-            'SKIP'
-            'db65e8dff5152588b946f02e1ab5a38d4ad482864158baca5de499cd649cb389'
-            '47a008c8b3b684330f2b80beeaca20105ab3afcded9530b28b078821bd062ba6'
-            'SKIP')
+            '376db82b4613c3942932fde99d54c3dea1e4b29ab23d8b86daa6414327e6244d'
+            '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
+            '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
+            '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
+            '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
+            '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd')
 
 prepare() {
   cd linux-${pkgver}
@@ -260,7 +262,7 @@ prepare() {
   if [ -n "$_clr_enable" ]; then
     echo "Patching with clearlinux patches..."
     for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
-      grep -Ev '^Patch0132|^Patch0118|^Patch0113|^Patch0138|^Patch0139' | sed -n 's/.*: //p'); do
+      grep -Ev '^Patch0132|^Patch0109|^Patch0118|^Patch0113|^Patch0138|^Patch0139|^Patch0147' | sed -n 's/.*: //p'); do
         if [ -n "$_clangbuild" ]; then
           if [ "${i}" == "0162-extra-optmization-flags.patch" ] ; then
             continue
@@ -272,7 +274,7 @@ prepare() {
   fi
 
   if [[ -n "$_clangbuild" ]]; then
-    scripts/config -e LTO_CLANG_FULL
+    scripts/config -e LTO_CLANG_THIN
     export _LLVM=1
     export _LLVM_IAS=$_LLVM
   fi
@@ -285,7 +287,7 @@ prepare() {
   # https://github.com/graysky2/kernel_gcc_patch
   # make sure to apply after olddefconfig to allow the next section
   msg2 "Patching to enable GCC optimization for other uarchs..."
-  patch -Np1 -i "$srcdir/kernel_compiler_patch-$_gcc_more_v/more-uarches-for-kernel-5.17+.patch"
+  patch -Np1 -i "$srcdir/kernel_compiler_patch-$_gcc_more_v/more-uarches-for-kernel-6.8-rc4+.patch"
 
   if [ -n "$_subarch" ]; then
     # user wants a subarch so apply choice defined above interactively via 'yes'
@@ -321,7 +323,8 @@ prepare() {
 
 build() {
   cd linux-${pkgver}
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM -j$(nproc) all
+  make  -j$(nproc) LLVM=$_LLVM LLVM_IAS=$_LLVM all
+  make  -j$(nproc) LLVM=$_LLVM LLVM_IAS=$_LLVM -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 }
 
 _package() {
@@ -379,7 +382,7 @@ _package-headers() {
 
   echo "Installing build files..."
   install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
-    localversion.* version vmlinux
+    localversion.* version vmlinux tools/bpf/bpftool/vmlinux.h
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
   install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
   cp -t "$builddir" -a scripts
