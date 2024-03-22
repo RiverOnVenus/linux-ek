@@ -97,6 +97,7 @@ arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ck-tt"
 license=(GPL-2.0-only)
 makedepends=(
+  git
   bc
   cpio
   gettext
