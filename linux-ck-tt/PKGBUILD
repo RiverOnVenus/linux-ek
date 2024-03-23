@@ -128,6 +128,7 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
+  "0001-le9uo.patch::${_patchsource}/6.8/0001-le9uo.patch"
   "0002-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
  # "0003-cjktty.patch::${_patchsource}/6.8/0001-cjktty.patch"
 )
@@ -143,11 +144,12 @@ validpgpkeys=(
 )
 sha256sums=('8d0c8936e3140a0fbdf511ad7a9f21121598f3656743898f47bb9052d37cff68'
             'SKIP'
-            'c2b00c84c4b543db431e06604d939a62f93107d18369f4d9860dc8062b01ab45'
+            '3384abf03cfb0e2cb817ccd422d237ddc98ae23f9263783f64c01106dbf72bde'
             '376db82b4613c3942932fde99d54c3dea1e4b29ab23d8b86daa6414327e6244d'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
+            'b7f8bbbac6572c9c4b562a3a3d2b329804fdf20cf47d8871ab4d6ecd9beeb4d4'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd')
 
