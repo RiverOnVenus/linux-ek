@@ -25,9 +25,6 @@ _clangbuild=
 ### Set performance governor as default
 _per_gov=
 
-# disable debug to lower the size of the kernel
-_disable_debug=y
-
 ### Enable TCP_CONG_BBR3
 _tcp_bbr3=y
 
@@ -207,14 +204,6 @@ prepare() {
             -e TCP_CONG_BBR \
             -e DEFAULT_BBR \
             --set-str DEFAULT_TCP_CONG bbr
-
-        # BBR3 doesn't work properly with FQ_CODEL
-        echo "Disabling fq_codel by default..."
-        scripts/config -m NET_SCH_FQ_CODEL \
-            -e NET_SCH_FQ \
-            -d DEFAULT_FQ_CODEL \
-            -e DEFAULT_FQ \
-            --set-str DEFAULT_NET_SCH fq
     fi
 
     ### Enable zram/zswap ZSTD compression
@@ -235,21 +224,6 @@ prepare() {
           --enable CPU_FREQ_DEFAULT_GOV_PERFORMANCE
   fi
 
-  ### Disable DEBUG
-  if [ -n "$_disable_debug" ]; then
-      scripts/config --disable DEBUG_INFO \
-          --disable DEBUG_INFO_BTF \
-          --disable DEBUG_INFO_DWARF4 \
-          --disable DEBUG_INFO_DWARF5 \
-          --disable PAHOLE_HAS_SPLIT_BTF \
-          --disable DEBUG_INFO_BTF_MODULES \
-          --disable SLUB_DEBUG \
-          --disable PM_DEBUG \
-          --disable PM_ADVANCED_DEBUG \
-          --disable PM_SLEEP_DEBUG \
-          --disable ACPI_DEBUG \
-          --disable DEBUG_PREEMPT
-  fi
   # these are ck's htrimer patches
   echo "Patching with ck hrtimer patches..."
 
