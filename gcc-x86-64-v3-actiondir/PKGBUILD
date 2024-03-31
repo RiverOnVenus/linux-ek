@@ -86,12 +86,12 @@ _subarch=41
 #  44. AMD-Native optimizations autodetected by the compiler (MNATIVE_AMD) (NEW)
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
-pkgbase=linux-ck-tt
+pkgbase=linux-ek
 pkgver=6.8.1
 _upstream=arch1
-pkgrel=2
+pkgrel=1
 arch=('x86_64' 'x86_64_v3')
-url="https://github.com/RiverOnVenus/linux-ck-tt"
+url="https://github.com/RiverOnVenus/linux-ek"
 license=(GPL-2.0-only)
 makedepends=(
   git
@@ -128,9 +128,11 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "0001-le9uo.patch::${_patchsource}/6.8/0001-le9uo.patch"
-  "0002-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
- # "0003-cjktty.patch::${_patchsource}/6.8/0001-cjktty.patch"
+  "0001-echo.patch::${_patchsource}/cpu-scheduler/6.8/0001-echo.patch"
+  "0002-ksm.patch::${_patchsource}/6.8/0001-ksm.patch"
+  "0003-le9uo.patch::${_patchsource}/6.8/0001-le9uo.patch"
+  "0004-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
+  "0005-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.7/0001-cjktty-6.7.patch"
 )
 
 ## clearlinux patches
@@ -144,13 +146,16 @@ validpgpkeys=(
 )
 sha256sums=('8d0c8936e3140a0fbdf511ad7a9f21121598f3656743898f47bb9052d37cff68'
             'SKIP'
-            '3384abf03cfb0e2cb817ccd422d237ddc98ae23f9263783f64c01106dbf72bde'
+            'be42cd60340095855fdea3da8a98c0902c174dadb9c5fc9ad4d11779cdbf62f6'
             '376db82b4613c3942932fde99d54c3dea1e4b29ab23d8b86daa6414327e6244d'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
+            '2870c0706a7e5a3e3e48552fc45240da09fc64dd6b8a00dcb42eac8d0c5b165b'
+            'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
             'b7f8bbbac6572c9c4b562a3a3d2b329804fdf20cf47d8871ab4d6ecd9beeb4d4'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
+            '4853ac7ea7271e9ac91ff9651d7002ed66ffd3751de49823e5b18f8300abdaf9'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd')
 
 prepare() {
@@ -191,12 +196,12 @@ prepare() {
   scripts/config --disable CONFIG_KVM_WERROR
 
   # ck recommends 1000 Hz tick and the hrtimer patches in lieu of ck1
-  scripts/config --enable CONFIG_HZ_1000
+  # scripts/config --enable CONFIG_HZ_1000
 
-  ### Select TT Scheduler
-  echo "Selecting TT Scheduler..."
-  scripts/config --enable TT_SCHED \
-      --enable TT_ACCOUNTING_STATS
+  ### Select ECHO Scheduler
+  echo "Selecting ECHO Scheduler..."
+  scripts/config --enable CONFIG_ECHO_SCHED
+  scripts/config --enable CONFIG_HZ_625
 
     ### Enable bbr3
     if [ -n "$_tcp_bbr3" ]; then
@@ -305,7 +310,7 @@ build() {
 }
 
 _package() {
-  pkgdesc="The Linux kernel and modules with Con Kolivas' hrtimer patches and TT CPU scheduler by Hamad Al Marri and with some other patches"
+  pkgdesc="The Linux kernel and modules with ECHO CPU scheduler by Hamad Al Marri and Con Kolivas' hrtimer patches and with some other stuff"
   depends=(
     coreutils
     initramfs
@@ -314,11 +319,13 @@ _package() {
   optdepends=(
     'wireless-regdb: to set the correct wireless channels of your country'
     'linux-firmware: firmware images needed for some devices'
+    'uksmd: Userspace KSM helper daemon'
   )
   provides=(
     KSMBD-MODULE
     VIRTUALBOX-GUEST-MODULES
     WIREGUARD-MODULE
+    UKSMD-BUILTIN
   )
   replaces=(
     virtualbox-guest-modules-arch
