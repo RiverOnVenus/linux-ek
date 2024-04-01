@@ -5,7 +5,7 @@
 The Linux-ek kernel and modules with ECHO CPU scheduler by [Hamad Al Marri](https://github.com/hamadmarri) and [Con Kolivas](https://github.com/ckolivas)' hrtimer patches and with some other stuff. Based on [Linux-ck](https://aur.archlinux.org/packages/linux-ck/) maintained by [graysky](https://github.com/graysky2).
 
 - [ck-hrtimer](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html) - Con Kolivas' hrtimer from -ck.
-- [ECHO CPU Scheduler](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator.
+- [ECHO CPU Scheduler](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator, implemented on top of Baby scheduler.
 - [kernel_compiler_patch](https://github.com/graysky2/kernel_compiler_patch) enables compiler optimizations for additional CPUs.
 - [BBR v3](https://github.com/google/bbr/blob/v3/README.md) is a congestion control algorithm proposed by Google.
 - [clearlinux](https://github.com/clearlinux-pkgs/linux) from Intel's Clear Linux project. Provides performance and security optimizations.
