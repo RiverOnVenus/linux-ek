@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
     - name: Makepkg Build and Check
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.8
@@ -16,10 +16,10 @@ jobs:
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
     - name: Release
-      uses: ncipollo/release-action@v1.11.1
+      uses: ncipollo/release-action@v1.14.0
       with:
           allowUpdates: true
-          tag: "6.8.1-1-gcc-x86-64"
+          tag: "6.8.1-2-gcc-x86-64"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
     - name: Makepkg Build and Check
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.8
@@ -36,10 +36,10 @@ jobs:
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
     - name: Release
-      uses: ncipollo/release-action@v1.11.1
+      uses: ncipollo/release-action@v1.14.0
       with:
           allowUpdates: true
-          tag: "6.8.1-1-llvm-lto-x86-64"
+          tag: "6.8.1-2-llvm-lto-x86-64"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
     - name: Makepkg Build and Check
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.8
@@ -56,10 +56,10 @@ jobs:
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
     - name: Release
-      uses: ncipollo/release-action@v1.11.1
+      uses: ncipollo/release-action@v1.14.0
       with:
           allowUpdates: true
-          tag: "6.8.1-1-gcc-x86-64-v3"
+          tag: "6.8.1-2-gcc-x86-64-v3"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
     - name: Makepkg Build and Check
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1.1.8
@@ -76,10 +76,10 @@ jobs:
           namcapDisable: 1
           makepkgArgs: "--skippgpcheck --noconfirm -s"
     - name: Release
-      uses: ncipollo/release-action@v1.11.1
+      uses: ncipollo/release-action@v1.14.0
       with:
           allowUpdates: true
-          tag: "6.8.1-1-llvm-lto-x86-64-v3"
+          tag: "6.8.1-2-llvm-lto-x86-64-v3"
           commit: master
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}

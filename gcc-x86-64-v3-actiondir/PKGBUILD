@@ -89,7 +89,7 @@ _subarch=41
 pkgbase=linux-ek
 pkgver=6.8.1
 _upstream=arch1
-pkgrel=1
+pkgrel=2
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ek"
 license=(GPL-2.0-only)
@@ -128,7 +128,7 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "0001-echo.patch::${_patchsource}/cpu-scheduler/6.8/0001-echo.patch"
+  "0001-echo.patch::${_patchsource}/cpu-scheduler/6.8/0001-echo-002.patch"
   "0002-ksm.patch::${_patchsource}/6.8/0001-ksm.patch"
   "0003-le9uo.patch::${_patchsource}/6.8/0001-le9uo.patch"
   "0004-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
@@ -151,7 +151,7 @@ sha256sums=('8d0c8936e3140a0fbdf511ad7a9f21121598f3656743898f47bb9052d37cff68'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
-            '2870c0706a7e5a3e3e48552fc45240da09fc64dd6b8a00dcb42eac8d0c5b165b'
+            '16624855d999fe93a5753c378b2d8a152f4871401619f8972fe7c59350acbbab'
             'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
             'b7f8bbbac6572c9c4b562a3a3d2b329804fdf20cf47d8871ab4d6ecd9beeb4d4'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
