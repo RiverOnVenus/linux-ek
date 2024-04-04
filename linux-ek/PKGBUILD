@@ -87,9 +87,9 @@ _subarch=39
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ek
-pkgver=6.8.1
+pkgver=6.8.3
 _upstream=arch1
-pkgrel=2
+pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ek"
 license=(GPL-2.0-only)
@@ -144,14 +144,14 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('8d0c8936e3140a0fbdf511ad7a9f21121598f3656743898f47bb9052d37cff68'
+sha256sums=('db7eb56d5014ee9a7fac0c715053155d92798d98d9197a2173eef1f0a496c986'
             'SKIP'
             'c2b00c84c4b543db431e06604d939a62f93107d18369f4d9860dc8062b01ab45'
-            '376db82b4613c3942932fde99d54c3dea1e4b29ab23d8b86daa6414327e6244d'
+            '194f2f7729d94c1642d83f591022a787fda9963ac688b6a6f1b9b91514a00080'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
-            '16624855d999fe93a5753c378b2d8a152f4871401619f8972fe7c59350acbbab'
+            '2945c132d2b8738f88cac1fd2cf9287895d2044732847d7032b49da88f050d0a'
             'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
             'b7f8bbbac6572c9c4b562a3a3d2b329804fdf20cf47d8871ab4d6ecd9beeb4d4'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
