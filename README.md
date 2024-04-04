@@ -62,8 +62,8 @@ You can see: `ECHO CPU scheduler v6.8 by Hamad Al Marri.`
 
 # Defaults and Sysctls in ECHO
 
-- The default HZ for ECHO is 625HZ - ticks every 1.6ms. No need to increase  it since the HighRes clock handles the task preemption in 105us max.
-- `kernel.sched_bs_shared_quota` by default is 105000 (105us) can be tuned with sysctl ex. `sysctl kernel.sched_bs_shared_quota=4800000` larger values saves CPU caches but reduces interactivity and multitasking.
+- The default HZ for ECHO is 625HZ - ticks every 1.6ms. No need to  increase it since the HighRes clock handles the task preemption in 35us  max.
+- `kernel.sched_bs_shared_quota` by default is 35000 (35us) can be tuned with sysctl ex. `sysctl kernel.sched_bs_shared_quota=4800000` larger values saves CPU caches but reduces interactivity and multitasking.
 - There are kernel configurations that must be disabled:
   - CONFIG_FAIR_GROUP_SCHED
   - CONFIG_SCHED_AUTOGROUP
