@@ -37,7 +37,7 @@ _clr_enable=y
 # Optionally select a sub architecture by number or leave blank which will
 # require user interaction during the build. Note that the generic (default)
 # option is 39.
-_subarch=39
+_subarch=
 
 #  1. AMD Opteron/Athlon64/Hammer/K8 (MK8)
 #  2. AMD Opteron/Athlon64/Hammer/K8 with SSE3 (MK8SSE3) (NEW)
@@ -87,9 +87,9 @@ _subarch=39
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ek
-pkgver=6.8.3
+pkgver=6.8.4
 _upstream=arch1
-pkgrel=2
+pkgrel=1
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ek"
 license=(GPL-2.0-only)
@@ -144,10 +144,10 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('db7eb56d5014ee9a7fac0c715053155d92798d98d9197a2173eef1f0a496c986'
+sha256sums=('d5dec495fc00605fa9e04114df547fbc92b33d9ea7a4a2b7073c589590e79e63'
             'SKIP'
-            'c2b00c84c4b543db431e06604d939a62f93107d18369f4d9860dc8062b01ab45'
-            '194f2f7729d94c1642d83f591022a787fda9963ac688b6a6f1b9b91514a00080'
+            '5c0ebdac3ab21e1282cca9f5d41412eab90352f6f2ec22ce660ad038a5ff48fa'
+            'bb2b3aa16007a0d5d61571af86a44be414f8672dad5a719cbdc92bfb758b1217'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
