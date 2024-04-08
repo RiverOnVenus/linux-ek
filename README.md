@@ -163,7 +163,7 @@ vm.dirty_ratio = 4
 
 # Swappiness (default 60)
 # For Solid State Drives
-# vm.swappiness = 100
+vm.swappiness = 100
 # See https://chrisdown.name/2018/01/02/in-defence-of-swap.html
 #
 # Or
