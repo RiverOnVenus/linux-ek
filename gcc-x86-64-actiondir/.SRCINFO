@@ -1,6 +1,6 @@
 pkgbase = linux-ek
-	pkgver = 6.8.4
-	pkgrel = 2
+	pkgver = 6.8.5
+	pkgrel = 1
 	url = https://github.com/RiverOnVenus/linux-ek
 	arch = x86_64
 	arch = x86_64_v3
@@ -17,10 +17,10 @@ pkgbase = linux-ek
 	makedepends = xz
 	options = !debug
 	options = !strip
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.4.tar.xz
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.4.tar.sign
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.5.tar.xz
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.5.tar.sign
 	source = config
-	source = https://github.com/archlinux/linux/releases/download/v6.8.4-arch1/linux-v6.8.4-arch1.patch.zst
+	source = https://github.com/archlinux/linux/releases/download/v6.8.5-arch1/linux-v6.8.5-arch1.patch.zst
 	source = more-uarches-20240221.2.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/20240221.2.tar.gz
 	source = ck-hrtimer-ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7.tar.gz::https://github.com/graysky2/linux-patches/archive/ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7.tar.gz
 	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.4-1422
@@ -32,10 +32,10 @@ pkgbase = linux-ek
 	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.4-1422
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
-	sha256sums = d5dec495fc00605fa9e04114df547fbc92b33d9ea7a4a2b7073c589590e79e63
+	sha256sums = 138923e5d73748b4bdbe9b5a0b8f36dfac9fcc16753a9222928dc6c963effa89
 	sha256sums = SKIP
 	sha256sums = bd221103c68a37d83a698ffd2949efa1cfc50d8bfcc357212b23da559a04b09c
-	sha256sums = bb2b3aa16007a0d5d61571af86a44be414f8672dad5a719cbdc92bfb758b1217
+	sha256sums = 4ad162664e08e57ed8abf44827ecc2fce2eeb38b34988483a9183065a229534e
 	sha256sums = 1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f
 	sha256sums = 111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381
 	sha256sums = 0b4881b6b432f8ad2701086a018ee323688fa3e0832047a9935ea5ab9377698c
