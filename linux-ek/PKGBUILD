@@ -89,7 +89,7 @@ _subarch=
 pkgbase=linux-ek
 pkgver=6.8.5
 _upstream=arch1
-pkgrel=1
+pkgrel=2
 arch=('x86_64' 'x86_64_v3')
 url="https://github.com/RiverOnVenus/linux-ek"
 license=(GPL-2.0-only)
@@ -153,7 +153,7 @@ sha256sums=('138923e5d73748b4bdbe9b5a0b8f36dfac9fcc16753a9222928dc6c963effa89'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd'
             '08ed8456f284e1bd8e8e4bdcb6cb7b3f7b8e82cb3da04a9bd010b1e5bf99068a'
             'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
-            'b7f8bbbac6572c9c4b562a3a3d2b329804fdf20cf47d8871ab4d6ecd9beeb4d4'
+            '104e62bb6f127bbeaacd48fd578190ad0378906528f58a9d1dccd14643e2570c'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
             '4853ac7ea7271e9ac91ff9651d7002ed66ffd3751de49823e5b18f8300abdaf9'
             '76796447078d6601bd6815a954703cedfae6af29cbced8c2f45a309d2c57c1bd')
