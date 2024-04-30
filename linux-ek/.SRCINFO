@@ -1,5 +1,5 @@
 pkgbase = linux-ek
-	pkgver = 6.8.7
+	pkgver = 6.8.8
 	pkgrel = 1
 	url = https://github.com/RiverOnVenus/linux-ek
 	arch = x86_64
@@ -17,34 +17,34 @@ pkgbase = linux-ek
 	makedepends = xz
 	options = !debug
 	options = !strip
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.7.tar.xz
-	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.7.tar.sign
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.8.tar.xz
+	source = https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.8.8.tar.sign
 	source = config
-	source = https://github.com/archlinux/linux/releases/download/v6.8.7-arch1/linux-v6.8.7-arch1.patch.zst
+	source = https://github.com/archlinux/linux/releases/download/v6.8.8-arch1/linux-v6.8.8-arch1.patch.zst
 	source = more-uarches-20240221.2.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/20240221.2.tar.gz
 	source = ck-hrtimer-ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7.tar.gz::https://github.com/graysky2/linux-patches/archive/ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7.tar.gz
-	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.6-1426
+	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.7-1429
 	source = 0001-echo.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/cpu-scheduler/6.8/0001-echo-005.patch
 	source = 0002-ksm.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.8/0001-ksm.patch
 	source = 0003-le9uo.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.8/0001-le9uo.patch
 	source = 0004-bbr3.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.8/0001-bbr3.patch
 	source = 0005-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.7/0001-cjktty-6.7.patch
-	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.6-1426
+	source = linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=6.8.7-1429
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
-	sha256sums = 291d1a1faf4e87b3b0ea9729080db887aafd1ff2fac1430ceca921e46bc22fae
+	sha256sums = 1c4cdcb9d560fad1fb95db2cb8afbedc922f9ead848371fe40363b13f9f631ba
 	sha256sums = SKIP
-	sha256sums = 39d0c1e31b905fc7409a372b1371d440f3f95af61cdaed6dc791dcab4d2b611b
-	sha256sums = a49b47f89187d2fce6c79f263683bc06b152974b4cf8d8faee535e4bcf04adc7
+	sha256sums = 0e78254fa2d2718e8912a41047266b9a63aa53fb74198da4389b97fa8bf8c40b
+	sha256sums = 3328bb421dc41135584adc6295ad64125c217dc57939d5397b29f53d16f02da4
 	sha256sums = 1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f
 	sha256sums = 111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381
-	sha256sums = b51e69e306f220e28dca9760911b3e7f8152cf4855e10a8464f3f84acd66904d
+	sha256sums = 5253c9dc993657b1b9021f97fd66451181269b26ffe63ea406ffa58270eea50d
 	sha256sums = 08ed8456f284e1bd8e8e4bdcb6cb7b3f7b8e82cb3da04a9bd010b1e5bf99068a
 	sha256sums = c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337
 	sha256sums = 0d25a67305a959848d9e639766c89e82b75c98c512c532bfa7c48f66b9632241
 	sha256sums = 4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6
 	sha256sums = 4853ac7ea7271e9ac91ff9651d7002ed66ffd3751de49823e5b18f8300abdaf9
-	sha256sums = b51e69e306f220e28dca9760911b3e7f8152cf4855e10a8464f3f84acd66904d
+	sha256sums = 5253c9dc993657b1b9021f97fd66451181269b26ffe63ea406ffa58270eea50d
 
 pkgname = linux-ek
 	pkgdesc = The Linux kernel and modules with ECHO CPU scheduler by Hamad Al Marri and Con Kolivas' hrtimer patches and with some other stuff
