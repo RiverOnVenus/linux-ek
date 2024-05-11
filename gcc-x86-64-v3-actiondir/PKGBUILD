@@ -87,7 +87,7 @@ _subarch=41
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ek
-pkgver=6.8.8
+pkgver=6.8.9
 _upstream=arch1
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
@@ -120,7 +120,7 @@ _commit=ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7
 _gcc_more_v=20240221.2
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.8.7-1429
+_clr=6.8.8-1430
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config  # the main kernel config file
@@ -144,19 +144,19 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('1c4cdcb9d560fad1fb95db2cb8afbedc922f9ead848371fe40363b13f9f631ba'
+sha256sums=('f905f1238ea7a8e85314bacf283302e8097006010d25fcea726d0de0ea5bc9b6'
             'SKIP'
-            '50725619b2775c99692e1a5389c14f920b3a2757c75aeaf921ac43ded3b7d422'
-            '3328bb421dc41135584adc6295ad64125c217dc57939d5397b29f53d16f02da4'
+            'ae9c96e09507ba7c95dc3512d13e2d01798d7e6c348fa1d4210502804600594d'
+            '7a212eedb9fe3da99d6d5b63eb5f28c10ee4333e4d42ea1bb3842a15d3107bef'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
-            '5253c9dc993657b1b9021f97fd66451181269b26ffe63ea406ffa58270eea50d'
+            '9946f8e8f977aa93f110d8ce3447c9bc597a8e30d3237c82b92c9559bda5cd3c'
             '08ed8456f284e1bd8e8e4bdcb6cb7b3f7b8e82cb3da04a9bd010b1e5bf99068a'
             'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
             '0d25a67305a959848d9e639766c89e82b75c98c512c532bfa7c48f66b9632241'
             '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
             '4853ac7ea7271e9ac91ff9651d7002ed66ffd3751de49823e5b18f8300abdaf9'
-            '5253c9dc993657b1b9021f97fd66451181269b26ffe63ea406ffa58270eea50d')
+            '9946f8e8f977aa93f110d8ce3447c9bc597a8e30d3237c82b92c9559bda5cd3c')
 
 prepare() {
   cd linux-${pkgver}
