@@ -87,7 +87,7 @@ _subarch=39
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 pkgbase=linux-ek
-pkgver=6.8.9
+pkgver=6.9.3
 _upstream=arch1
 pkgrel=1
 arch=('x86_64' 'x86_64_v3')
@@ -120,7 +120,7 @@ _commit=ae3cbb29c43ca1baa6781f547d17b8ee5663e9d7
 _gcc_more_v=20240221.2
 _patchsource="https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master"
 
-_clr=6.8.8-1430
+_clr=6.9.2-1437
 source=(
   "https://www.kernel.org/pub/linux/kernel/v6.x/linux-$pkgver.tar".{xz,sign}
   config  # the main kernel config file
@@ -128,11 +128,11 @@ source=(
   "more-uarches-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_compiler_patch/archive/$_gcc_more_v.tar.gz"
   "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit.tar.gz"
   "linux-clear::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "0001-echo.patch::${_patchsource}/cpu-scheduler/6.8/0001-echo-005.patch"
-  "0002-ksm.patch::${_patchsource}/6.8/0001-ksm.patch"
-  "0003-le9uo.patch::${_patchsource}/6.8/0001-le9uo.patch"
-  "0004-bbr3.patch::${_patchsource}/6.8/0001-bbr3.patch"
-  "0005-cjktty.patch::https://raw.githubusercontent.com/RiverOnVenus/kernel-patches/master/6.7/0001-cjktty-6.7.patch"
+  "0001-echo.patch::${_patchsource}/cpu-scheduler/6.9/0001-echo-005.patch"
+  "0002-ksm.patch::${_patchsource}/6.9/0001-ksm.patch"
+  "0003-le9uo.patch::${_patchsource}/6.9/0001-le9uo.patch"
+  "0004-bbr3.patch::${_patchsource}/6.9/0001-bbr3.patch"
+  "0005-cjktty.patch::${_patchsource}/6.9/0001-cjktty.patch"
 )
 
 ## clearlinux patches
@@ -144,19 +144,19 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('f905f1238ea7a8e85314bacf283302e8097006010d25fcea726d0de0ea5bc9b6'
+sha256sums=('c321c46401368774fc236f57095b205a5da57415f9a6008018902f9fd5eddfae'
             'SKIP'
-            'ae9c96e09507ba7c95dc3512d13e2d01798d7e6c348fa1d4210502804600594d'
-            '7a212eedb9fe3da99d6d5b63eb5f28c10ee4333e4d42ea1bb3842a15d3107bef'
+            'fe624860e420ad1e81b7d0bba8b3ee740c0aff53a6762a6ccda5b81fcfa38569'
+            'cf11fe18d60f2bf85fa0dd61a2fb1d59bf40f98db48dfae2244c5839c1281919'
             '1d3ac3e581cbc5108f882fcdc75d74f7f069654c71bad65febe5ba15a7a3a14f'
             '111adfc5b9c7d3bfd7d1a06286e7bee853dd1f51ecca3948eed39710eaf51381'
-            '9946f8e8f977aa93f110d8ce3447c9bc597a8e30d3237c82b92c9559bda5cd3c'
+            '9f2a8a97c34bdb201cb31165ea068add8c583571fab222cbc2884725104485af'
             '08ed8456f284e1bd8e8e4bdcb6cb7b3f7b8e82cb3da04a9bd010b1e5bf99068a'
-            'c00406cc04aa97ccb1ff0fadd2c14fed8e363f7e8d4067810338b18f4ab64337'
+            'd8a88be129704ed3598a75711fba3b3394293fb861a3676b47b3f612cff36822'
             '0d25a67305a959848d9e639766c89e82b75c98c512c532bfa7c48f66b9632241'
-            '4529251ce0315362ff178baabf165fdb864685a7b3b21c870b37da5c5d14fbe6'
-            '4853ac7ea7271e9ac91ff9651d7002ed66ffd3751de49823e5b18f8300abdaf9'
-            '9946f8e8f977aa93f110d8ce3447c9bc597a8e30d3237c82b92c9559bda5cd3c')
+            'bdf3a703bcd65a58b6e43ba01b3fb99c309855de5bbf24b8e5ff2a8a5e4d27c8'
+            '6714bf3968392e29f19e44514d490ad7ec718c3897003210fd1e499017dd429d'
+            '9f2a8a97c34bdb201cb31165ea068add8c583571fab222cbc2884725104485af')
 
 prepare() {
   cd linux-${pkgver}
@@ -246,7 +246,7 @@ prepare() {
     for i in $(grep '^Patch' ${srcdir}/linux-clear/linux.spec |\
       grep -Ev '^Patch0132|^Patch0109|^Patch0118|^Patch0113|^Patch0138|^Patch0139|^Patch0147' | sed -n 's/.*: //p'); do
         if [ -n "$_clangbuild" ]; then
-          if [ "${i}" == "0162-extra-optmization-flags.patch" ] ; then
+          if [ "${i}" == "0133-novector.patch" ] ; then
             continue
           fi
         fi
